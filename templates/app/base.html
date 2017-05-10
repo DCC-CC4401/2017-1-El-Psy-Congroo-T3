@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../static/fb.js"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    <script src="http://materializecss.com/templates/starter-template/js/init.js"></script>
+
+    <nav class="top-nav">
+        <div class="nav-wrapper teal lighten-1">
+            <a href="#" class="brand-logo right"><img style="max-height: 65px!important;  padding: 8px 0!important;" class="circle" src="../static/img/logo.png"></a>
+          <div class="navbar-fixed">
+            <a href="#" data-activates="slide-out"
+               class="left button-collapse btn-floating btn-large waves-effect waves-light"><i
+                    class="material-icons">menu</i></a>
+            <a class="center page-title"></a>
+          </div>
+            <ul id="slide-out" class="side-nav fixed leftside-navigation ps-container ps-active-y">
+                <li>
+                    <div class="userView">
+                    <i class="material-icons right grey-text text-lighten-2" style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">settings</i>
+                  <div class="background" style="height:175px;">
+                    <img src="../static/img/background4.png">
+                  </div>
+                  <a href="#!user"><img style="margin-top: 16%;" class="circle" src="../static/img/AvatarPenguin.png"></a>
+                  <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
+                </div>
+                </li>
+                <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+                <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
+                <!--<li><a href="{% url 'login' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>-->
+                <!--<li><div class="divider"></div></li>
+                <li><a class="subheader">Activo</a></li>
+                <li>
+                    <div class="switch" style="margin-left: 80px;">
+                        <label>
+                            No<input type="checkbox"><span class="lever"></span>Si
+                        </label>
+                    </div>
+                </li>
+                <li><a class="subheader">Filtros</a></li>
+                <li>
+                    <div class="switch" style="margin-left: 10px;">
+                        <label>
+                            <input type="checkbox"><span class="lever"></span>Sólo mostrar favoritos
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="switch" style="margin-left: 10px;">
+                        <label>
+                            <input type="checkbox"><span class="lever"></span>Snacks
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="switch" style="margin-left: 10px;">
+                        <label>
+                            <input type="checkbox"><span class="lever"></span>Almuerzos
+                        </label>
+                    </div>
+                </li>-->
+            </ul>
+        </div>
+    </nav>
+
+</head>
+
+<body>
+
+{% block content %}
+{% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+
+<div class="section"></div>
+  <main>
+      <div class="section"></div>
+
+      <h5 class="teal-text" style="text-align: center;">¡Regístrate!</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="margin-left: 5%; margin-right: 5%; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12 m12" method="post">
+            <div class='row'>
+              <div class='col s12 m12'>
+              </div>
+            </div>
+
+              <div class="input-field col s12 m12">
+                <select>
+                  <option value="" disabled selected>Elige una opción</option>
+                  <option value="1">Vendedor fijo</option>
+                  <option value="2">Vendedor móvil</option>
+                  <option value="3">Cliente</option>
+                </select>
+                <label>Tipo de Usuario</label>
+              </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                <input class='validate' type='text' name='nombre' id='nombre' />
+                <label style="text-align: center" for='nombre'>Ingresa tu nombre</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                <input class='validate' type='email' name='email' id='email' />
+                <label style="text-align: center" for='email'>Ingresa tu e-mail</label>
+              </div>
+            </div>
+
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s6">
+                      <i class="material-icons prefix">alarm</i>
+                      <input id="icon_prefix" type="text" class="validate">
+                      <label for="icon_prefix">Hora inicial</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <i class="material-icons prefix">alarm</i>
+                      <input id="icon_telephone" type="tel" class="validate">
+                      <label for="icon_telephone">Hora final</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                Seleccione sus formas de pago:
+                <form action="#">
+                      <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+                        <label for="filled-in-box">Efectivo</label>
+                      </p>
+                      <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
+                        <label for="filled-in-box2">Tarjeta de Crédito</label>
+                      </p>
+                      <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box3" checked="checked" />
+                        <label for="filled-in-box3">Tarjeta de Débito</label>
+                      </p>
+                      <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box4" checked="checked" />
+                        <label for="filled-in-box4">Tarjeta Junaeb</label>
+                      </p>
+                </form>
+              </div>
+            </div>
+
+              <div>
+                  Cambiar avatar:
+              </div>
+
+                <div class="col s12 l6">
+                  <input class="with-gap" name="group1" type="radio" id="test1" />
+                  <label for="test1"><img style="max-width: 50px;" src="../static/img/AvatarVendedor1.png"></label>
+                  <input class="with-gap" name="group1" type="radio" id="test2" />
+                  <label for="test2"><img style="max-width: 50px;" src="../static/img/AvatarVendedor2.png"></label>
+                  <input class="with-gap" name="group1" type="radio" id="test3" />
+                  <label for="test3"><img style="max-width: 50px;" src="../static/img/AvatarVendedor3.png"></label>
+                  <input class="with-gap" name="group1" type="radio" id="test4" />
+                  <label for="test4"><img style="max-width: 50px;" src="../static/img/AvatarVendedor4.png"></label>
+                </div>
+              </form>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                <input class='validate' type='password' name='password' id='password' />
+                <label style="text-align: center" for='password'>Ingresa tu contraseña</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                <input class='validate' type='password' name='password2' id='password2' />
+                <label style="text-align: center" for='password2'>Repite tu contraseña</label>
+              </div>
+            </div>
+
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col l6 offset-l3 btn btn-large waves-effect teal'>Registrarse</button>
+              </div>
+
+          </form>
+        </div>
+      </div>
+        <div style="text-align: center;"><a class="grey-text"> ¿Ya tienes una cuenta? </a></a><a href="{% url 'login' %}">Inicia sesión</a></div>
+
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+{% endblock %}

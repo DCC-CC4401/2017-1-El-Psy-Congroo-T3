@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="section"></div>
+  <main>
+      <div class="section"></div>
+
+      <h5 style="text-align: center;" class="teal-text">Inicia Sesión</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="margin-left: 5%; margin-right: 5%; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12" method="post">
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='email' name='email' id='email' />
+                <label style="text-align: center;" for='email'>Ingresa tu correo</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='password' name='password' id='password' />
+                <label style="text-align: center;" for='password'>Ingresa tu contraseña</label>
+              </div>
+              <label style='float: right;'>
+								<a class='red-text text-accent-2' href='#!'><b>¿Olvidaste tu contraseña?</b></a>
+							</label>
+            </div>
+
+
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col l6 offset-l3 btn btn-large waves-effect teal'>Iniciar sesión</button>
+              </div>
+
+          </form>
+        </div>
+      </div>
+      <div style="text-align: center;"><a class="grey-text">¿Aún no tienes cuenta?</a> <a href="{% url 'signup' %}"> Regístrate</a></div>
+
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+{% endblock %}
