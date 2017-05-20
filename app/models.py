@@ -22,6 +22,7 @@ class Usuario(models.Model):
 
 class Comprador(models.Model):
     nombre = models.CharField(u'Nombre', max_length=50, default='')
+    favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
 
     class Meta:
         verbose_name = 'Comprador'
@@ -35,8 +36,8 @@ class Vendedor(models.Model):
     name = models.CharField(u'Nombre', max_length=50, default='', primary_key=True)
     activo = models.BooleanField(u'Activo', default=False)
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
-    # metodos = models.IntegerField(u'Métodos de pago', choices=PAYMENT_METHODS, default=1)
     favoritos = models.IntegerField(u'Favoritos', default=0)
+    metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
 
     class Meta:
         verbose_name = 'Vendedor'
@@ -45,6 +46,16 @@ class Vendedor(models.Model):
     def __str__(self):
         return self.name
 
+
+class PaymentMethod(models.Model):
+    metodo = models.CharField(u'Método de pago', max_length=30, default='', primary_key=True)
+
+    class Meta:
+        verbose_name = 'Método de pago'
+        verbose_name_plural = 'Métodos de pago'
+
+    def __str__(self):
+        return self.metodo
 
 class Producto(models.Model):
     nombre = models.CharField(u'Nombre', max_length=50, default='')
