@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^vendedor$', views.vendedorprofilepage, name='vendedorprofilepage'),
     #/app/productos
     url(r'^productos$', views.gestionproductos, name='gestionproductos'),
+    #/app/usuario
+    url(r'^usuario$', views.profile_edit, name='profile_edit'),
 ]

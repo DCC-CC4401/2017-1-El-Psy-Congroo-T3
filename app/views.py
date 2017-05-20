@@ -13,6 +13,8 @@ def signup(request):
 def vendedorprofilepage(request):
     return render(request, 'app/vendedor-profile-page.html', {})
 
-
 def gestionproductos(request):
     return render(request, 'app/gestion-productos.html', {})
+
+def profile_edit(request):
+    return render(request, 'app/profile-edit.html', {})

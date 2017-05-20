@@ -3,8 +3,12 @@
 {% block user_info %}
     <li>
         <div class="userView">
-            <i class="material-icons right grey-text text-lighten-2"
-               style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">settings</i>
+            <a href="{% url 'profile_edit' %}">
+                <i class="material-icons right grey-text text-lighten-2"
+                   style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">
+                    settings
+                </i>
+            </a>
           <div class="background" style="height:175px;">
             <img src="../static/img/background4.png">
           </div>
