@@ -10,4 +10,4 @@ CATEGORIA_COMIDA = (
     (2, 'Vegetariano'),
     (3, 'Vegano'),
     (4, 'Postre'),
-    )
+)
