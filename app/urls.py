@@ -8,7 +8,7 @@ urlpatterns = [
     #/app/login
     url(r'^login$', views.login, name='login'),
     #/app/signup
-    url(r'^signup$', views.signup, name='signup'),
+    url(r'^register$', views.register, name='register'),
     #/app/vendedor
     url(r'^vendedor$', views.vendedorprofilepage, name='vendedorprofilepage'),
     #/app/productos

@@ -43,11 +43,11 @@ $(document).ready(function() {
             </div>
 
               <div class="input-field col s12 m12">
-                <select>
+                <select id="option_selector"  name="options">
                   <option value="" disabled selected>Elige una opción</option>
-                  <option value="1">Vendedor fijo</option>
-                  <option value="2">Vendedor móvil</option>
-                  <option value="3">Cliente</option>
+                  <option value="fijo">Vendedor fijo</option>
+                  <option value="ambulante">Vendedor ambulante</option>
+                  <option value="cliente">Cliente</option>
                 </select>
                 <label>Tipo de Usuario</label>
               </div>
@@ -65,49 +65,49 @@ $(document).ready(function() {
                 <label style="text-align: center" for='email'>Ingresa tu e-mail</label>
               </div>
             </div>
-
-              <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s6">
-                      <i class="material-icons prefix">alarm</i>
-                      <input id="icon_prefix" type="text" class="validate">
-                      <label for="icon_prefix">Hora inicial</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <i class="material-icons prefix">alarm</i>
-                      <input id="icon_telephone" type="tel" class="validate">
-                      <label for="icon_telephone">Hora final</label>
-                    </div>
+            <div id="options">
+                  <div class="row" id="ambulante">
+                      Seleccione su horario de atención:
+                    <form class="col s12">
+                      <div class="row">
+                        <div class="input-field col s6">
+                          <i class="material-icons prefix">alarm</i>
+                          <input id="icon_prefix" type="text" class="validate">
+                          <label for="icon_prefix">Hora inicial</label>
+                        </div>
+                        <div class="input-field col s6">
+                          <i class="material-icons prefix">alarm</i>
+                          <input id="icon_telephone" type="tel" class="validate">
+                          <label for="icon_telephone">Hora final</label>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                </form>
-              </div>
 
-
-            <div class='row'>
-              <div class='input-field col s12 m12'>
-                Seleccione sus formas de pago:
-                <form action="#">
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-                        <label for="filled-in-box">Efectivo</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
-                        <label for="filled-in-box2">Tarjeta de Crédito</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box3" checked="checked" />
-                        <label for="filled-in-box3">Tarjeta de Débito</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box4" checked="checked" />
-                        <label for="filled-in-box4">Tarjeta Junaeb</label>
-                      </p>
-                </form>
-              </div>
+                <div class='row' id="fijo">
+                  <div class='input-field col s12 m12'>
+                    Seleccione sus formas de pago:
+                    <form action="#">
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box" />
+                            <label for="filled-in-box">Efectivo</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box2" />
+                            <label for="filled-in-box2">Tarjeta de Crédito</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box3" />
+                            <label for="filled-in-box3">Tarjeta de Débito</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box4" />
+                            <label for="filled-in-box4">Tarjeta Junaeb</label>
+                          </p>
+                    </form>
+                  </div>
+                </div>
             </div>
-
             <div class='row'>
               <div class='input-field col s12 m12'>
                 <input class='validate' type='password' name='password' id='password' />
@@ -121,7 +121,6 @@ $(document).ready(function() {
                 <label style="text-align: center" for='password2'>Repite tu contraseña</label>
               </div>
             </div>
-
               <div class='row'>
                 <button type='submit' name='btn_login' class='col l6 offset-l3 btn btn-large waves-effect teal'>Registrarse</button>
               </div>
@@ -138,4 +137,23 @@ $(document).ready(function() {
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    $('#options div').hide();
+    $('#option_selector').change(refresh_inputs);
+    refresh_inputs();
+    function refresh_inputs() {
+        var name = $('#option_selector').attr('name');
+        var val = $('#option_selector').val();
+        if (val.localeCompare("fijo") == 0) {
+          $('#options div').show();
+          $('#ambulante').hide();
+        }
+        if (val.localeCompare("ambulante") == 0) {
+          $('#options div').show();
+        }
+        if (val.localeCompare("cliente") == 0) {
+          $('#options div').hide();
+        }
+    }
+  </script>
 {% endblock %}
