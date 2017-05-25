@@ -40,6 +40,8 @@ class Vendedor(models.Model):
     favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
     #foto = models.ImageField(u'Foto', null = True)
+    horario_inicio = models.TimeField(u'Horario de inicio', null=True)
+    horario_fin = models.TimeField(u'Horario fin', null=True)
 
     class Meta:
         verbose_name = 'Vendedor'
