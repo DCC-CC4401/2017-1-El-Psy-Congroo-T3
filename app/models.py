@@ -11,6 +11,7 @@ from app.utils.functions import *
 class Usuario(models.Model):
     usuario = models.OneToOneField(User, verbose_name='Usuario', related_name='usuario')
     nombre = models.CharField(u'Nombre', max_length=50, default='')
+    tipo = models.IntegerField(u'Tipo de usuario', choices=TIPO_USUARIO, default=2)
 
     class Meta:
         verbose_name = 'Usuario'
@@ -38,6 +39,9 @@ class Vendedor(models.Model):
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
     favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
+    #foto = models.ImageField(u'Foto', null = True)
+    horario_inicio = models.TimeField(u'Horario de inicio', null=True)
+    horario_fin = models.TimeField(u'Horario fin', null=True)
 
     class Meta:
         verbose_name = 'Vendedor'
