@@ -1,0 +1,87 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+
+{% block user_info %}
+    <li>
+        <div class="userView">
+          <div class="background" style="height:175px;">
+            <img src="../../static/img/background4.png">
+          </div>
+          <a href="#!user"><img style="margin-top: 16%;" class="circle"
+                                src="../../static/img/AvatarPenguin.png"></a>
+          <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
+        </div>
+    </li>
+{% endblock %}
+
+{% block side_content %}
+    <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+    <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
+    <li><div class="divider"></div></li>
+{% endblock %}
+
+{% block content %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+
+<div class="section"></div>
+  <main>
+      <div class="section"></div>
+
+      <h5 class="teal-text" style="text-align: center;">¡Regístrate!</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="margin-left: 5%; margin-right: 5%; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12 m12" method="post" action="">
+              {% csrf_token %}
+            <div class='row'>
+              <div class='col s12 m12'>
+              </div>
+            </div>
+
+              {{ form.as_p }}
+
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col l6 offset-l3 btn btn-large waves-effect teal'>Registrarse</button>
+              </div>
+
+          </form>
+        </div>
+      </div>
+        <div style="text-align: center;"><a class="grey-text"> ¿Ya tienes una cuenta? </a></a><a href="{% url 'login' %}">
+            Inicia sesión</a>
+        </div>
+
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    $('#options div').hide();
+    $('#option_selector').change(refresh_inputs);
+    refresh_inputs();
+    function refresh_inputs() {
+        var name = $('#option_selector').attr('name');
+        var val = $('#option_selector').val();
+        if (val.localeCompare("fijo") == 0) {
+          $('#options div').show();
+          $('#ambulante').hide();
+        }
+        if (val.localeCompare("ambulante") == 0) {
+          $('#options div').show();
+        }
+        if (val.localeCompare("cliente") == 0) {
+          $('#options div').hide();
+        }
+    }
+  </script>
+
+{% endblock %}
