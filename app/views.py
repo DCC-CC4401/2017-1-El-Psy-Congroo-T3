@@ -45,7 +45,7 @@ def register2(request):
         form = UserForm(request.POST)
 
         if form.is_valid():
-            tipo2=form.cleaned_data['tipo']
+            tipo2=form.cleaned_data['tipo2']
             user = User.objects.create_user(username=form.cleaned_data['nombre'],
                                             password=form.cleaned_data['password1'], email=form.cleaned_data['email'])
             user2 = Usuario(usuario=user, nombre=form.cleaned_data['nombre'], tipo=tipo2)

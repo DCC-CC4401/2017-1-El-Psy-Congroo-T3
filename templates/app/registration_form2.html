@@ -45,7 +45,7 @@ $(document).ready(function() {
             </div>
 
               <div class="input-field col s12 m12">
-                {{ form.tipo }}
+                {{ form.tipo2 }}
                 <label>Tipo de Usuario</label>
               </div>
 
@@ -124,11 +124,11 @@ $(document).ready(function() {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script type="text/javascript">
     $('#options div').hide();
-    $('#id_tipo').change(refresh_inputs);
+    $('#id_tipo2').change(refresh_inputs);
     refresh_inputs();
     function refresh_inputs() {
-        var name = $('#id_tipo').attr('name');
-        var val = $('#id_tipo').val();
+        var name = $('#id_tipo2').attr('name');
+        var val = $('#id_tipo2').val();
         console.log(val);
         if (val.localeCompare("3") == 0) {
           $('#options div').show();

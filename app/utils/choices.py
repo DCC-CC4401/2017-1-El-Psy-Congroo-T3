@@ -18,3 +18,9 @@ TIPO_USUARIO = (
     (3, 'Vendedor ambulante'),
     (4, 'Vendedor fijo'),
 )
+
+TIPO_USUARIO_2 = (
+    (2, 'Alumno'),
+    (3, 'Vendedor ambulante'),
+    (4, 'Vendedor fijo'),
+)
