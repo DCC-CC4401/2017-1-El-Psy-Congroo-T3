@@ -7,14 +7,15 @@ from app.utils.choices import TIPO_USUARIO_2
 class UserForm(forms.ModelForm):
     #username = forms.CharField(label='Username', max_length=30)
     tipo2 = forms.ChoiceField(choices=TIPO_USUARIO_2)
+    tipo = forms.ChoiceField(required=False)
     email = forms.EmailField(label='Ingresa tu e-mail', widget=forms.EmailInput())
     password1 = forms.CharField(label='Ingresa tu contraseña',
                                 widget=forms.PasswordInput())
     password2 = forms.CharField(label='Repite tu contraseña',
                                 widget=forms.PasswordInput())
-    horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput(), initial='8:00')
-    horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput(), initial='18:00')
-    pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all(), required=False)
+    horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput(), required=False, initial='8:00')
+    horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput(), required=False, initial='18:00')
+    pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all(), required=False, initial=PaymentMethod.objects.none())
 
     def clean_password2(self):
         if 'password1' in self.cleaned_data:

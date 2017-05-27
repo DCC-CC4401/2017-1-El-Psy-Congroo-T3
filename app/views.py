@@ -50,14 +50,14 @@ def register2(request):
                                             password=form.cleaned_data['password1'], email=form.cleaned_data['email'])
             user2 = Usuario(usuario=user, nombre=form.cleaned_data['nombre'], tipo=tipo2)
             user2.save()
-            if tipo2 == 2: #alumno
+            if tipo2 == "2": #alumno
                 usuarioAlumno = Comprador(nombre=form.cleaned_data['nombre'])
                 usuarioAlumno.save()
-            if tipo2 == 4: #ambulante
-                usuarioAmbulante = Vendedor(name=form.cleaned_data['nombre'])
+            if tipo2 == "3": #ambulante
+                usuarioAmbulante = Vendedor(name=form.cleaned_data['nombre'], tipo=2)
                 usuarioAmbulante.metodopago.add(form.cleaned_data['pagos'])
                 usuarioAmbulante.save()
-            if tipo2 == 3: #fijo
+            if tipo2 == "4": #fijo
                 usuarioFijo = Vendedor(name=form.cleaned_data['nombre'], horario_inicio=form.cleaned_data['horainicial'],
                                        horario_fin=form.cleaned_data['horafinal'])
                 usuarioFijo.metodopago.add(form.cleaned_data['pagos'])
