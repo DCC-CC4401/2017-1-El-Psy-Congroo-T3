@@ -4,12 +4,28 @@ from .forms import *
 from .models import  *
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     return render(request, 'app/index.html', {})
 
-def login(request):
+def login_user(request):
+    logout(request)
+    if request.method == "POST":
+        email = request.POST['email']
+        password = request.POST['password']
+
+        username = User.objects.get(email=email.lower()).username
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('index')
     return render(request, 'app/login.html', {})
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
 
 def register(request):
     return render(request, 'app/register.html', {})

@@ -6,7 +6,9 @@ urlpatterns = [
     #/app/
     url(r'^$', views.index, name='index'),
     #/app/login
-    url(r'^login$', views.login, name='login'),
+    url(r'^login$', views.login_user, name='login'),
+    #/app/logout
+    url(r'^logout$', views.logout_user, name='logout'),
     #/app/signup
     url(r'^register$', views.register, name='register'),
     #/app/vendedor

@@ -14,26 +14,35 @@
           </div>
           <a href="#!user"><img style="margin-top: 16%;" class="circle"
                                 src="../static/img/AvatarPenguin.png"></a>
-          <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
+            {% if user.username %}
+                <a href="#!name"><span style="margin-left: 5%;" class="white-text name">{{ user.username }}</span></a>
+            {% else %}
+                <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
+            {% endif %}
         </div>
     </li>
 {% endblock %}
 
 {% block side_content %}
-    <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
-    <li><a href="{% url 'register' %}"><i class="material-icons">input</i>Registrarse</a></li>
-    <!--<li><a href="{% url 'login' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>-->
+    {% if user.username %}
+        <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>
+    {% else %}
+        <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
+        <li><a href="{% url 'register' %}"><i class="material-icons">input</i>Registrarse</a></li>
+    {% endif %}
     <li><div class="divider"></div></li>
 
     <li><a class="subheader">Filtros</a></li>
 
-    <!--<li>
+    {% if user.username %}
+         <li>
         <div class="switch" style="margin-left: 10px;">
             <label>
                 <input type="checkbox"><span class="lever"></span>Sólo mostrar favoritos
             </label>
         </div>
-    </li>-->
+    </li>
+    {% endif %}
 
     <li>
         <div class="switch" style="margin-left: 10px;">
