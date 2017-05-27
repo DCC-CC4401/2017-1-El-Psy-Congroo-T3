@@ -44,7 +44,82 @@ $(document).ready(function() {
               </div>
             </div>
 
-              {{ form.as_p }}
+              <div class="input-field col s12 m12">
+                {{ form.tipo }}
+                <label>Tipo de Usuario</label>
+              </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                {{ form.nombre }}
+                <label style="text-align: center" for='id_nombre'>Ingresa tu nombre</label>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class='input-field col s12 m12'>
+                    {{ form.email }}
+                    <label style="text-align: center" for='id_email'>Ingresa tu e-mail</label>
+                </div>
+            </div>
+
+            <div id="options">
+                  <div class="row" id="ambulante">
+                      Seleccione su horario de atención:
+                    <form class="col s12">
+                      <div class="row">
+                        <div class="input-field col s6">
+                          <i class="material-icons prefix">alarm</i>
+                          {{ form.horainicial }}
+                          <label for="id_horainicial">Hora inicial</label>
+                        </div>
+                        <div class="input-field col s6">
+                          <i class="material-icons prefix">alarm</i>
+                          {{ form.horafinal }}
+                          <label for="id_horafinal">Hora final</label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                <div class='row' id="fijo">
+                  <div class='input-field col s12 m12'>
+                    Seleccione sus formas de pago:
+                    <form action="#">
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box" />
+                            <label for="filled-in-box">Efectivo</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box2" />
+                            <label for="filled-in-box2">Tarjeta de Crédito</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box3" />
+                            <label for="filled-in-box3">Tarjeta de Débito</label>
+                          </p>
+                          <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box4" />
+                            <label for="filled-in-box4">Tarjeta Junaeb</label>
+                          </p>
+                    </form>
+                  </div>
+                </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                {{ form.password1 }}
+                <label style="text-align: center" for='id_password1'>Ingresa tu contraseña</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12 m12'>
+                {{ form.password2 }}
+                <label style="text-align: center" for='id_password2'>Repite tu contraseña</label>
+              </div>
+            </div>
 
               <div class='row'>
                 <button type='submit' name='btn_login' class='col l6 offset-l3 btn btn-large waves-effect teal'>Registrarse</button>
@@ -66,16 +141,17 @@ $(document).ready(function() {
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script type="text/javascript">
     $('#options div').hide();
-    $('#option_selector').change(refresh_inputs);
+    $('#id_tipo').change(refresh_inputs);
     refresh_inputs();
     function refresh_inputs() {
-        var name = $('#option_selector').attr('name');
-        var val = $('#option_selector').val();
-        if (val.localeCompare("fijo") == 0) {
+        var name = $('#id_tipo').attr('name');
+        var val = $('#id_tipo').val();
+        console.log(val);
+        if (val.localeCompare("Alumno") == 0) {
           $('#options div').show();
           $('#ambulante').hide();
         }
-        if (val.localeCompare("ambulante") == 0) {
+        if (val.localeCompare("3") == 0) {
           $('#options div').show();
         }
         if (val.localeCompare("cliente") == 0) {
