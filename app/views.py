@@ -37,13 +37,11 @@ def register2(request):
             if tipo2 == 2: #alumno
                 usuarioAlumno = Comprador(nombre=form.cleaned_data['nombre'])
                 usuarioAlumno.save()
-            if tipo2 == 3: #ambulante
-                print("a")
+            if tipo2 == 4: #ambulante
                 usuarioAmbulante = Vendedor(name=form.cleaned_data['nombre'])
                 usuarioAmbulante.metodopago.add(form.cleaned_data['pagos'])
                 usuarioAmbulante.save()
-            if tipo2 == 4: #fijo
-                print("b")
+            if tipo2 == 3: #fijo
                 usuarioFijo = Vendedor(name=form.cleaned_data['nombre'], horario_inicio=form.cleaned_data['horainicial'],
                                        horario_fin=form.cleaned_data['horafinal'])
                 usuarioFijo.metodopago.add(form.cleaned_data['pagos'])

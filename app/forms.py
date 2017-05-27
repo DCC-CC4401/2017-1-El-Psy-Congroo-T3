@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
                                 widget=forms.PasswordInput())
     horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput(), initial='8:00')
     horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput(), initial='18:00')
-    pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all())
+    pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all(), initial=PaymentMethod.objects.filter(metodo='Efectivo'))
 
     def clean_password2(self):
         if 'password1' in self.cleaned_data:
