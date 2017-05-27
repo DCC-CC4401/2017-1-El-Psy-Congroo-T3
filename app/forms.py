@@ -2,16 +2,18 @@ from django import forms
 from .models import *
 
 
+
 class UserForm(forms.ModelForm):
     #username = forms.CharField(label='Username', max_length=30)
+
     email = forms.EmailField(label='Ingresa tu e-mail', widget=forms.EmailInput())
     password1 = forms.CharField(label='Ingresa tu contraseña',
                                 widget=forms.PasswordInput())
     password2 = forms.CharField(label='Repite tu contraseña',
                                 widget=forms.PasswordInput())
-    horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput())
-    horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput())
-    #pagos = forms.MultipleChoiceField(choices=)
+    horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput(), initial='8:00')
+    horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput(), initial='18:00')
+    pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all())
 
     def clean_password2(self):
         if 'password1' in self.cleaned_data:

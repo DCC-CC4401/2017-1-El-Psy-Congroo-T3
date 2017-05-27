@@ -27,12 +27,27 @@ def register2(request):
     if request.method == "POST":
 
         form = UserForm(request.POST)
+
         if form.is_valid():
             tipo2=form.cleaned_data['tipo']
             user = User.objects.create_user(username=form.cleaned_data['nombre'],
                                             password=form.cleaned_data['password1'], email=form.cleaned_data['email'])
             user2 = Usuario(usuario=user, nombre=form.cleaned_data['nombre'], tipo=tipo2)
             user2.save()
+            if tipo2 == 2: #alumno
+                usuarioAlumno = Comprador(nombre=form.cleaned_data['nombre'])
+                usuarioAlumno.save()
+            if tipo2 == 3: #ambulante
+                print("a")
+                usuarioAmbulante = Vendedor(name=form.cleaned_data['nombre'])
+                usuarioAmbulante.metodopago.add(form.cleaned_data['pagos'])
+                usuarioAmbulante.save()
+            if tipo2 == 4: #fijo
+                print("b")
+                usuarioFijo = Vendedor(name=form.cleaned_data['nombre'], horario_inicio=form.cleaned_data['horainicial'],
+                                       horario_fin=form.cleaned_data['horafinal'])
+                usuarioFijo.metodopago.add(form.cleaned_data['pagos'])
+                usuarioFijo.save()
             return redirect('index')
     else:
         form = UserForm()

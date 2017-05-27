@@ -66,7 +66,7 @@ $(document).ready(function() {
             <div id="options">
                   <div class="row" id="ambulante">
                       Seleccione su horario de atención:
-                    <form class="col s12">
+                    <div class="col s12">
                       <div class="row">
                         <div class="input-field col s6">
                           <i class="material-icons prefix">alarm</i>
@@ -79,30 +79,13 @@ $(document).ready(function() {
                           <label for="id_horafinal">Hora final</label>
                         </div>
                       </div>
-                    </form>
+                    </div>
                   </div>
 
                 <div class='row' id="fijo">
                   <div class='input-field col s12 m12'>
                     Seleccione sus formas de pago:
-                    <form action="#">
-                          <p>
-                            <input type="checkbox" class="filled-in" id="filled-in-box" />
-                            <label for="filled-in-box">Efectivo</label>
-                          </p>
-                          <p>
-                            <input type="checkbox" class="filled-in" id="filled-in-box2" />
-                            <label for="filled-in-box2">Tarjeta de Crédito</label>
-                          </p>
-                          <p>
-                            <input type="checkbox" class="filled-in" id="filled-in-box3" />
-                            <label for="filled-in-box3">Tarjeta de Débito</label>
-                          </p>
-                          <p>
-                            <input type="checkbox" class="filled-in" id="filled-in-box4" />
-                            <label for="filled-in-box4">Tarjeta Junaeb</label>
-                          </p>
-                    </form>
+                    {{ form.pagos }}
                   </div>
                 </div>
             </div>
@@ -147,14 +130,14 @@ $(document).ready(function() {
         var name = $('#id_tipo').attr('name');
         var val = $('#id_tipo').val();
         console.log(val);
-        if (val.localeCompare("Alumno") == 0) {
+        if (val.localeCompare("4") == 0) {
           $('#options div').show();
           $('#ambulante').hide();
         }
         if (val.localeCompare("3") == 0) {
           $('#options div').show();
         }
-        if (val.localeCompare("cliente") == 0) {
+        if (val.localeCompare("2") == 0) {
           $('#options div').hide();
         }
     }
