@@ -20,7 +20,11 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('index')
+                tipo = Usuario.objects.get(nombre=username).tipo
+                if tipo == 2: #alumno
+                    return redirect('index')
+                else: #vendedor
+                    return redirect('vendedorprofilepage')
     return render(request, 'app/login.html', {})
 
 def logout_user(request):
