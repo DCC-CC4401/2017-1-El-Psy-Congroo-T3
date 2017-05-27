@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from app.utils.choices import *
@@ -39,7 +38,7 @@ class Vendedor(models.Model):
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
     favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
-    #foto = models.ImageField(u'Foto', null = True)
+    foto = models.ImageField(u'Foto', upload_to='pictures/', default='static/img/AvatarEstudiante.png', help_text='Recomendado: (que tamaño creen?)')
     horario_inicio = models.TimeField(u'Horario de inicio', null=True)
     horario_fin = models.TimeField(u'Horario fin', null=True)
 
@@ -61,6 +60,7 @@ class PaymentMethod(models.Model):
     def __str__(self):
         return self.metodo
 
+
 class Producto(models.Model):
     nombre = models.CharField(u'Nombre', max_length=50, default='')
     stock = models.IntegerField(u'Stock', default=0)
@@ -74,5 +74,3 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
-
-
