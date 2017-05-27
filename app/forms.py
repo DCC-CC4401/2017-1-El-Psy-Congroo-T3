@@ -1,9 +1,5 @@
 from django import forms
-
-from .models import Usuario
-import re
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+from .models import *
 
 
 class UserForm(forms.ModelForm):
@@ -24,3 +20,10 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ('tipo', 'nombre',)
+
+class ProductoForm(forms.ModelForm):
+
+    class Meta:
+        model = Producto
+        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion',)
+

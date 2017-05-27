@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^productos$', views.gestionproductos, name='gestionproductos'),
     #/app/usuario
     url(r'^usuario$', views.profile_edit, name='profile_edit'),
-    # /app/signup
+    # /app/register2
     url(r'^register2$', views.register2, name='register2'),
+    # /app/productos2
+    url(r'^productos2$', views.productos2, name='productos2'),
 ]

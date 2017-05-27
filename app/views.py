@@ -35,3 +35,17 @@ def register2(request):
     else:
         form = UserForm()
     return render(request, 'app/registration_form2.html', {'form': form})
+
+def productos2(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
+                                categoria=form.cleaned_data['categoria'],
+                                descripcion=form.cleaned_data['descripcion'],
+                                precio = form.cleaned_data['precio'])
+            producto.save()
+            return redirect('vendedorprofilepage')
+    else:
+        form = ProductoForm()
+    return render(request, 'app/productos2.html', {'form': form})
