@@ -14,7 +14,7 @@
           </div>
           <a href="#!user"><img style="margin-top: 16%;" class="circle"
                                 src="../static/img/AvatarPenguin.png"></a>
-          {% if user.username %}
+          {% if user.is_authenticated %}
                 <a href="#!name"><span style="margin-left: 5%;" class="white-text name">{{ user.username }}</span></a>
           {% else %}
                 <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
@@ -25,7 +25,7 @@
 
 {% block side_content %}
     {% load auth_extras %}
-    {% if user.username %}
+    {% if user.is_authenticated %}
         <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>
     {% else %}
         <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
