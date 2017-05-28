@@ -5,6 +5,7 @@ from .models import  *
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group
 
 def index(request):
     return render(request, 'app/index.html', {})
@@ -57,15 +58,19 @@ def register2(request):
             if tipo2 == "2": #alumno
                 usuarioAlumno = Comprador(nombre=form.cleaned_data['nombre'])
                 usuarioAlumno.save()
+                g = Group.objects.get(name='alumno')
             if tipo2 == "3": #ambulante
                 usuarioAmbulante = Vendedor(name=form.cleaned_data['nombre'], tipo=2)
                 usuarioAmbulante.metodopago.add(form.cleaned_data['pagos'])
                 usuarioAmbulante.save()
+                g = Group.objects.get(name='vendedor_ambulante')
             if tipo2 == "4": #fijo
                 usuarioFijo = Vendedor(name=form.cleaned_data['nombre'], horario_inicio=form.cleaned_data['horainicial'],
                                        horario_fin=form.cleaned_data['horafinal'])
                 usuarioFijo.metodopago.add(form.cleaned_data['pagos'])
                 usuarioFijo.save()
+                g = Group.objects.get(name='vendedor_fijo')
+            g.user_set.add(user)
             return redirect('index')
     else:
         form = UserForm()
