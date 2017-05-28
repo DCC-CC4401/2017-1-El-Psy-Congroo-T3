@@ -24,6 +24,7 @@
 {% endblock %}
 
 {% block side_content %}
+    {% load auth_extras %}
     {% if user.username %}
         <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>
     {% else %}
@@ -34,7 +35,7 @@
 
     <li><a class="subheader">Filtros</a></li>
 
-    {% if user.username %}
+    {% if request.user|has_group:"alumno" %}
          <li>
         <div class="switch" style="margin-left: 10px;">
             <label>
