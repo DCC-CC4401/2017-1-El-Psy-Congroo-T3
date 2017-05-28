@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,11 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../static/fb.js"></script>
+     <script type="text/javascript" src="{% static 'fb.js' %}"></script>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
@@ -22,7 +23,7 @@
 <body>
     <nav class="top-nav">
         <div class="nav-wrapper teal lighten-1">
-            <a href="#" class="brand-logo right"><img style="max-height: 65px!important;  padding: 8px 0!important;" class="circle" src="../static/img/logo.png"></a>
+            <a href="#" class="brand-logo right"><img style="max-height: 65px!important;  padding: 8px 0!important;" class="circle" src="{% static 'img/logo.png' %}"></a>
           <div class="navbar-fixed">
             <a href="#" data-activates="slide-out"
                class="left button-collapse btn-floating btn-large waves-effect waves-light"><i

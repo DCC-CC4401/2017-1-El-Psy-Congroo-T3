@@ -12,7 +12,8 @@ urlpatterns = [
     #/app/signup
     url(r'^register$', views.register2, name='register'),
     #/app/vendedor
-    url(r'^vendedor$', views.vendedorprofilepage, name='vendedorprofilepage'),
+    #url(r'^vendedor$', views.vendedorprofilepage, name='vendedorprofilepage'),
+    url(r'^vendedor/(?P<name>.+)$', views.vendedorprofilepage, name='vendedorprofilepage'),
     #/app/productos
     url(r'^productos$', views.gestionproductos, name='gestionproductos'),
     #/app/usuario

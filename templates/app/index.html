@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
 {% block user_info %}
     <li>
@@ -10,10 +11,10 @@
                 </i>
             </a>
           <div class="background" style="height:175px;">
-            <img src="../static/img/background4.png">
+            <img src="{% static 'img/background4.png' %}">
           </div>
           <a href="#!user"><img style="margin-top: 16%;" class="circle"
-                                src="../static/img/AvatarPenguin.png"></a>
+                                src="{% static 'img/AvatarPenguin.png' %}"></a>
             {% if user.is_authenticated %}
                 <a href="#!name"><span style="margin-left: 5%;" class="white-text name">{{ user.username }}</span></a>
             {% else %}
@@ -59,6 +60,12 @@
             </label>
         </div>
     </li>
+
+    {% for vendedor in vendedores %}
+        <li>
+            <a href="{% url 'vendedorprofilepage' name=vendedor.name %}">{{ vendedor.name }}</a>
+        </li>
+    {% endfor %}
 {% endblock %}
 
 {% block content %}

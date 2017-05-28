@@ -6,9 +6,21 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.shortcuts import render
+
+def getVendedores():
+    vendedores = Vendedor.objects.all()
+    vendedorList = []
+
+    for v in vendedores:
+        vendedorList.append({'name': v.name})
+    return vendedorList
 
 def index(request):
-    return render(request, 'app/index.html', {})
+    data = {
+        'vendedores': getVendedores(),
+    }
+    return render(request, 'app/index.html', data)
 
 def login_user(request):
     logout(request)
@@ -25,7 +37,7 @@ def login_user(request):
                 if tipo == 2: #alumno
                     return redirect('index')
                 else: #vendedor
-                    return redirect('vendedorprofilepage')
+                    return redirect('vendedorprofilepage', name=username)
     return render(request, 'app/login.html', {})
 
 def logout_user(request):
@@ -35,8 +47,17 @@ def logout_user(request):
 def register(request):
     return render(request, 'app/register.html', {})
 
-def vendedorprofilepage(request):
-    return render(request, 'app/vendedor-profile-page.html', {})
+def vendedorprofilepage(request, name):
+    vendedor = Vendedor.objects.get(name=name)
+    data = {
+        'nombre': vendedor.name,
+        'activo': 'Activo' if vendedor.activo else 'Inactivo',
+        'tipo': 'Vendedor fijo' if vendedor.tipo == '4' else 'Vendedor ambulante',
+        'metodospago': vendedor.metodopago,
+        'horario_inicio': vendedor.horario_inicio,
+        'horario_fin': vendedor.horario_fin,
+    }
+    return render(request, 'app/vendedor-profile-page.html', data)
 
 def gestionproductos(request):
     return render(request, 'app/gestion-productos.html', {})
@@ -85,7 +106,7 @@ def productos2(request):
                                 descripcion=form.cleaned_data['descripcion'],
                                 precio = form.cleaned_data['precio'])
             producto.save()
-            return redirect('vendedorprofilepage')
+            return redirect('vendedorprofilepage', name=request)
     else:
         form = ProductoForm()
     return render(request, 'app/productos2.html', {'form': form})

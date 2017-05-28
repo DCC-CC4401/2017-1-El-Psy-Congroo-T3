@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
 {% block user_info %}
     <li>
@@ -10,10 +11,10 @@
                 </i>
             </a>
           <div class="background" style="height:175px;">
-            <img src="../static/img/background4.png">
+            <img src="{% static 'img/background4.png' %}">
           </div>
           <a href="#!user"><img style="margin-top: 16%;" class="circle"
-                                src="../static/img/AvatarPenguin.png"></a>
+                                src="{% static 'img/AvatarPenguin.png' %}"></a>
           <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
         </div>
     </li>
@@ -103,13 +104,13 @@ $(document).ready(function() {
 
                 <div class="col s12 l6">
                   <input class="with-gap" name="group1" type="radio" id="test1" />
-                  <label for="test1"><img style="max-width: 50px;" src="../static/img/AvatarVendedor1.png"></label>
+                  <label for="test1"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor1.png' %}"></label>
                   <input class="with-gap" name="group1" type="radio" id="test2" />
-                  <label for="test2"><img style="max-width: 50px;" src="../static/img/AvatarVendedor2.png"></label>
+                  <label for="test2"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor2.png' %}"></label>
                   <input class="with-gap" name="group1" type="radio" id="test3" />
-                  <label for="test3"><img style="max-width: 50px;" src="../static/img/AvatarVendedor3.png"></label>
+                  <label for="test3"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor3.png' %}"></label>
                   <input class="with-gap" name="group1" type="radio" id="test4" />
-                  <label for="test4"><img style="max-width: 50px;" src="../static/img/AvatarVendedor4.png"></label>
+                  <label for="test4"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor4.png' %}"></label>
                 </div>
               </form>
 
