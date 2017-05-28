@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from app.utils.choices import *
 from app.utils.functions import *
+import uuid
 
 
 # Create your models here.
@@ -21,6 +22,7 @@ class Usuario(models.Model):
 
 
 class Comprador(models.Model):
+    unique_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(u'Nombre', max_length=50, default='')
     favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
 
@@ -38,7 +40,7 @@ class Vendedor(models.Model):
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
     favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
-    #foto = models.ImageField(u'Foto', upload_to='pictures/', default='static/img/AvatarEstudiante.png', help_text='Recomendado: (que tamaño creen?)')
+    foto = models.ImageField(u'Foto', upload_to='pictures/', default='static/img/AvatarEstudiante.png', help_text='Recomendado: (que tamaño creen?)')
     horario_inicio = models.TimeField(u'Horario de inicio', null=True)
     horario_fin = models.TimeField(u'Horario fin', null=True)
 
