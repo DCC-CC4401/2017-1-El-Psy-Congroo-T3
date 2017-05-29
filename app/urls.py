@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.conf.urls.static import static
+from ElPsyCongroo import settings
 
 from app import views
 
@@ -22,3 +24,5 @@ urlpatterns = [
     # ajax request to change vendedor active status
     url(r'^ajax/change_active/$', views.change_active, name='change_active'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
