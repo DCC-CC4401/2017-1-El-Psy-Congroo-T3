@@ -44,6 +44,7 @@ $(document).ready(function() {
         <div class="z-depth-1 grey lighten-4 row" style="margin-left: 5%; margin-right: 5%; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 
           <form class="col s12 m12" method="post">
+            {% csrf_token %}
             <div class='row'>
               <div class='col s12 m12'>
               </div>
@@ -51,80 +52,53 @@ $(document).ready(function() {
 
             <div class='row'>
               <div class='input-field col s12 m12'>
-                <input class='validate' type='email' name='email' id='email' />
-                <label style="text-align: center" for='email'>Ingresar nuevo tu e-mail</label>
+                {{ form.email }}
+                <label style="text-align: center" for='id_email'>Ingresar e-mail nuevo</label>
               </div>
             </div>
 
+              {% if request.user|has_group:"vendedor_fijo" %}
+
               <div class="row">
-                <form class="col s12">
+                <div class="col s12">
                   <div class="row">
                     <div class="input-field col s6">
                       <i class="material-icons prefix">alarm</i>
-                      <input id="icon_prefix" type="text" class="validate">
-                      <label for="icon_prefix">Hora inicial</label>
+                        {{form.horainicial}}
+                        <label for="id_horainicial">Hora inicial</label>
                     </div>
                     <div class="input-field col s6">
                       <i class="material-icons prefix">alarm</i>
-                      <input id="icon_telephone" type="tel" class="validate">
-                      <label for="icon_telephone">Hora final</label>
+                      {{form.horafinal}}
+                      <label for="id_horafinal">Hora final</label>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
+              {% endif %}
 
-
+            {% if request.user|has_group:"vendedor_fijo" or request.user|has_group:"vendedor_ambulante"%}
             <div class='row'>
               <div class='input-field col s12 m12'>
                 Seleccione sus formas de pago:
-                <form action="#">
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-                        <label for="filled-in-box">Efectivo</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
-                        <label for="filled-in-box2">Tarjeta de Crédito</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box3" checked="checked" />
-                        <label for="filled-in-box3">Tarjeta de Débito</label>
-                      </p>
-                      <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box4" checked="checked" />
-                        <label for="filled-in-box4">Tarjeta Junaeb</label>
-                      </p>
-                </form>
+                <div>
+                      {{ form.pagos }}
+                </div>
               </div>
             </div>
-
+            {% endif %}
               <div>
                   Cambiar avatar:
               </div>
 
                 <div class="col s12 l6">
-                  <input class="with-gap" name="group1" type="radio" id="test1" />
-                  <label for="test1"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor1.png' %}"></label>
-                  <input class="with-gap" name="group1" type="radio" id="test2" />
-                  <label for="test2"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor2.png' %}"></label>
-                  <input class="with-gap" name="group1" type="radio" id="test3" />
-                  <label for="test3"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor3.png' %}"></label>
-                  <input class="with-gap" name="group1" type="radio" id="test4" />
-                  <label for="test4"><img style="max-width: 50px;" src="{% static 'img/AvatarVendedor4.png' %}"></label>
+                  {{ form.imagen }}
                 </div>
-              </form>
 
             <div class='row'>
               <div class='input-field col s12 m12'>
-                <input class='validate' type='password' name='password' id='password' />
-                <label style="text-align: center" for='password'>Para confirmar, ingresa tu contraseña</label>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12 m12'>
-                <input class='validate' type='password' name='password2' id='password2' />
-                <label style="text-align: center" for='password2'>Repite tu contraseña</label>
+                {{ form.password }}
+                <label style="text-align: center" for='id_password'>Para confirmar, ingresa tu contraseña</label>
               </div>
             </div>
 

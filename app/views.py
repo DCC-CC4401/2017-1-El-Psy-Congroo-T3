@@ -63,7 +63,28 @@ def gestionproductos(request):
     return render(request, 'app/gestion-productos.html', {})
 
 def profile_edit(request):
-    return render(request, 'app/profile-edit.html', {})
+    form = ProfileUpdateForm(user=request.user)
+
+    if request.method == "POST":
+        form2 = ProfileUpdateForm(request.POST)
+        if form2.is_valid():
+            user = User.objects.get(username=request.user)
+            if user.check_password(form2.cleaned_data['password']):
+                user.email = form2.cleaned_data['email']
+                user.save()
+                foto = form2.cleaned_data['imagen']
+                if user.groups.filter(name='alumno').exists(): #usuario es alumno
+                    alumno = Comprador.objects.get(username=request.user)
+                    alumno.foto = foto
+                    alumno.save()
+                else: #usuario vendedor
+                    vendedor = Vendedor.objects.get(username=request.user)
+                    vendedor.foto = foto
+                    vendedor.horario_inicio = form2.cleaned_data['horainicial']
+                    vendedor.horario_fin = form2.cleaned_data['horafinal']
+                    vendedor.save()
+        return redirect('index')
+    return render(request, 'app/profile-edit.html', {'form': form})
 
 def register2(request):
     if request.method == "POST":
