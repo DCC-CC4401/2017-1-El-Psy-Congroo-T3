@@ -66,7 +66,7 @@ def profile_edit(request):
     form = ProfileUpdateForm(user=request.user)
 
     if request.method == "POST":
-        form2 = ProfileUpdateForm(request.POST)
+        form2 = ProfileUpdateForm(request.POST, request.FILES)
         if form2.is_valid():
             user = User.objects.get(username=request.user)
             if user.check_password(form2.cleaned_data['password']):
