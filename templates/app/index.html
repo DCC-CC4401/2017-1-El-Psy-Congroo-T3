@@ -49,96 +49,9 @@
 
 {% block content %}
 
-	<div id="map"></div>
-
-    <script>
-      function initMap() {
-        var infoWindow;
-        var beau850 = {lat: -33.457785, lng: -70.663808};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 19,
-          center: beau850
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        var info = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<div><p style="float: left;"><img src="../static/img/AvatarVendedor4.png" width="50" hspace="10"></p>'    +
-            '<h4>Casino</h4></div>'+
-            '<p style="color:#029500;"> Disponible</p>' +
-            '<div id="bodyContent">'+
-            '<p>Vendedores de almuerzo</p>'+
-            '<p><i>Menú de hoy:</i> Lasaña</p>' +
-            '<p><i>Formas de pago:</i> Efectivo, Tarjeta de Crédito o Débito, Junaeb</p>' +
-            '<p><i>Horario:</i> 12:30-14:15</p>' +
-            '<p><input type="checkbox" class="filled-in" id="test" checked="checked" />' +
-            '<label for="test">Favorito</label></p>' +
-            '<p style="text-align: right;">Ver detalles»</p>' +
-            '</div>'+
-            '</div>';
-
-        var infoVendedor = new google.maps.InfoWindow({
-          content: info,
-          maxWidth: 400
-        });
+	<div id="map">
+         <img style="height:auto; max-width:100%;" src="{% static 'img/mapa.png' %}">
+    </div>
 
 
-        var marker = new google.maps.Marker({
-          position: beau850,
-          map: map
-        });
-
-        var marker2 = new google.maps.Marker({
-          position: {lat: -33.457885, lng: -70.663808},
-          map: map
-        });
-
-        var marker3 = new google.maps.Marker({
-          position: {lat: -33.458085, lng: -70.663808},
-          map: map,
-          icon: '../static/img/star.png'
-        });
-
-        var marker4 = new google.maps.Marker({
-          position: {lat: -33.458158, lng: -70.663678},
-          map: map
-        });
-
-        var marker5 = new google.maps.Marker({
-          position: {lat: -33.457658, lng: -70.663778},
-          map: map
-        });
-
-        marker3.addListener('click', function() {
-            infoVendedor.open(map, marker3);
-          });
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            }
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
-    </script>
-    <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV7ElkwQIJ2v6YG9fhXsbxbHNZzfoO9L8&callback=initMap">
-    </script>
 {% endblock %}
