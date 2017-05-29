@@ -82,12 +82,10 @@ def vendedorprofilepage(request, name):
 
 def gestionproductos(request, name):
     if request.method == "POST":
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            categorias = form.cleaned_data['categorias']
             producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
-                                #categoria=form.cleaned_data['categoria'],
-                                categoria=categorias,
+                                categoria=form.cleaned_data['categorias'],
                                 descripcion=form.cleaned_data['descripcion'],
                                 precio=form.cleaned_data['precio'],
                                 foto=form.cleaned_data['foto'])
