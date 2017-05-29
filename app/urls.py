@@ -14,7 +14,7 @@ urlpatterns = [
     #/app/vendedor
     url(r'^vendedor/(?P<name>.+)$', views.vendedorprofilepage, name='vendedorprofilepage'),
     #/app/productos/edit
-    url(r'^productos/edit/(?P<name>.+)$', views.productos_edit, name='edicionproductos'),
+    url(r'^productos/(?P<vendedor>.+)/edit/(?P<name>.+)$', views.productos_edit, name='edicionproductos'),
     #/app/productos
     url(r'^productos/(?P<name>.+)$', views.gestionproductos, name='gestionproductos'),
     #/app/usuario

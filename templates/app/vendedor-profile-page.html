@@ -47,7 +47,11 @@
     <li>
         <div class="switch" style="margin-left: 80px;">
             <label>
-                No<input id="activo" type="checkbox"><span class="lever"></span>Si
+                {% if estado == 'Activo' %}
+                    No<input id="activo" type="checkbox" checked><span class="lever"></span>Si
+                {% else %}
+                     No<input id="activo" type="checkbox"><span class="lever"></span>Si
+                {% endif %}
             </label>
         </div>
     </li>
@@ -59,8 +63,12 @@
  $("#activo").change(function () {
             $.ajax({
                 url: '{% url "change_active" %}',
+                success: function(data) {
+                      window.location.reload(); // This is not jQuery but simple plain ol' JS
+                }
             })
  });
+
  $(document).ready(function(){
     $('.modal').modal();
  });
@@ -102,6 +110,7 @@
                         <h8 class=" grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Formas de pago</h8>
                         <p class="medium-small flow-text grey-text">{{ metodospago }}</p>
                     </div>
+                {% if user.is_authenticated %}
                     <div class="col s3 l2 hide-on-med-and-down center-align">
                         <div class="switch" style="margin-left: 10px;">
                             <label>
@@ -116,6 +125,7 @@
                             </label>
                         </div>
                     </div>
+                {% endif %}
                 </div>
             {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
                 <div class="col s3 l2 hide-on-med-and-down right-align">
@@ -136,6 +146,7 @@
                         </p>
                     {% endif %}
 
+                    {% if user.is_authenticated %}
                         <div class="switch" style="margin-left: 10px;">
                             <label>
                                 <h4 class="card-title grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Favorito</h4>
@@ -149,6 +160,7 @@
                                 {% endif %}
                             </label>
                         </div>
+                    {% endif %}
                     </div>
                 <div class="col s3 m2 l12 offset-s1">
                     <p class="flow-text text-darken-4">Estado</p>
@@ -185,9 +197,17 @@
                                             <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
                                               <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="{% static 'img/pizza.png' %}">
                                             </div>
+                                             <div class="col m4 offset-s8 right-align"> <!--offset-s4-->
+                                                    <a href="{% url 'edicionproductos' name=p.nombre vendedor=nombre %}" class="btn-floating activator waves-effect waves-light darken-2">
+                                                          <i class="material-icons ">mode_edit</i>
+                                                      </a>
+                                             </div>
                                             <div class="card-content">
+
                                               <span class="card-title activator grey-text text-darken-4">{{ p.nombre }}<i class="material-icons right">more_vert</i></span>
+
                                               <p><a class="teal-text">${{ p.precio }}</a></p>
+
                                                 <div id="{{ p.nombre }}" class="modal">
                                                     <div class="modal-content">
                                                       <img class="activator responsive-img center-block" src="{% static 'img/pepperoni1.jpg' %}">
