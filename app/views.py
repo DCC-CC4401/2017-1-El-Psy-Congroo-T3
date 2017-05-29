@@ -74,11 +74,11 @@ def profile_edit(request):
                 user.save()
                 foto = form2.cleaned_data['imagen']
                 if user.groups.filter(name='alumno').exists(): #usuario es alumno
-                    alumno = Comprador.objects.get(username=request.user)
+                    alumno = Comprador.objects.get(nombre=request.user)
                     alumno.foto = foto
                     alumno.save()
                 else: #usuario vendedor
-                    vendedor = Vendedor.objects.get(username=request.user)
+                    vendedor = Vendedor.objects.get(name=request.user)
                     vendedor.foto = foto
                     vendedor.horario_inicio = form2.cleaned_data['horainicial']
                     vendedor.horario_fin = form2.cleaned_data['horafinal']
