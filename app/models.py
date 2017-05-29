@@ -24,7 +24,7 @@ class Usuario(models.Model):
 class Comprador(models.Model):
     unique_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(u'Nombre', max_length=50, default='')
-    favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
+    favoritos = models.ManyToManyField('Vendedor', related_name="users", blank=True)
     foto = models.ImageField(u'Foto', default='AvatarEstudiante3.png',
                              help_text='Recomendado: (que tamaño creen?)')
 
@@ -40,7 +40,6 @@ class Vendedor(models.Model):
     name = models.CharField(u'Nombre', max_length=50, default='', primary_key=True)
     activo = models.BooleanField(u'Activo', default=False)
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
-    favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
     foto = models.ImageField(u'Foto', default='AvatarVendedor5.png',
                              help_text='Recomendado: (que tamaño creen?)')

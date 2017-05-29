@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^usuario$', views.profile_edit, name='profile_edit'),
     # ajax request to change vendedor active status
     url(r'^ajax/change_active/$', views.change_active, name='change_active'),
+    # ajax request to add fav to user
+    url(r'^ajax/add_favorite/$', views.add_favorite, name='add_favorite'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

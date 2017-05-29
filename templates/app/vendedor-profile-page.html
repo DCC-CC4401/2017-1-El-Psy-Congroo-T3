@@ -91,10 +91,14 @@
                                 <h4 class="card-title grey-text flow-text text-darken-4">Favorito</h4>
                                 {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
                                     <h6><i class="material-icons amber-text" >grade</i>
-                                        <span class=" grey-text flow-text text-darken-4"style="font-size:24px; line-height:35px;">42</span>
+                                        <span class=" grey-text flow-text text-darken-4"style="font-size:24px; line-height:35px;">{{ numero_favs }}</span>
                                     </h6>
                                 {% else %}
-                                    <input type="checkbox"><span class="lever"></span>
+                                    {% if favorito %}
+                                    <input id="favbig" type="checkbox" checked><span class="lever"></span>
+                                    {% else %}
+                                    <input id="favbig" type="checkbox"><span class="lever"></span>
+                                    {% endif %}
                                 {% endif %}
                             </label>
                         </div>
@@ -230,4 +234,16 @@
         </div>
     </div>
     </main>
+
+<script>
+    $("#favbig").change(function () {
+     $.ajax({
+         url: '{% url "add_favorite" %}',
+         data: {
+             'vendedor': '{{nombre}}'
+         },
+         dataType: 'json',
+     })
+ })
+</script>
 {% endblock %}

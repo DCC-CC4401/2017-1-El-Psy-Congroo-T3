@@ -66,7 +66,17 @@ def register(request):
 
 def vendedorprofilepage(request, name):
     vendedor = Vendedor.objects.get(name=name)
+    usuario = request.user
+    favorito = False
+    if usuario.is_authenticated and usuario.groups.filter(name="alumno").exists():
+        alumno = Comprador.objects.get(nombre=usuario)
+        if vendedor in alumno.favoritos.all():
+            favorito = True
     metodospago = ''
+    favs = 0
+    if usuario.is_authenticated and (usuario.groups.filter(name="vendedor_fijo").exists() or usuario.groups.filter(name="vendedor_ambulante").exists()):
+        vendedor2 = Vendedor.objects.get(name=usuario)
+        favs = vendedor.users.all().count
     for m in vendedor.metodopago.all():
         metodospago += m.metodo + ' '
     data = {
@@ -77,6 +87,8 @@ def vendedorprofilepage(request, name):
         'horario_inicio': vendedor.horario_inicio,
         'horario_fin': vendedor.horario_fin,
         'productos': getProductos(vendedor),
+        'favorito': favorito,
+        'numero_favs': favs
     }
     return render(request, 'app/vendedor-profile-page.html', data)
 
@@ -181,4 +193,15 @@ def change_active(request):
     vendedor = Vendedor.objects.get(name=request.user)
     vendedor.activo = not vendedor.activo
     vendedor.save()
+    return HttpResponse("")
+
+def add_favorite(request):
+    user = Comprador.objects.get(nombre=request.user)
+    vendedor = Vendedor.objects.get(name=request.GET.get('vendedor', None))
+    if (vendedor in user.favoritos.all()):
+        user.favoritos.remove(vendedor)
+    else:
+        user.favoritos.add(vendedor)
+    user.save()
+    vendedor.users.all().count()
     return HttpResponse("")
