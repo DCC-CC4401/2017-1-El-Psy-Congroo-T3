@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.auth.models import Group
-from app.models import Comprador, Vendedor
+from app.models import Comprador, Vendedor, Producto
 
 register = template.Library()
 
@@ -17,7 +17,21 @@ def getprofilepic(context):
     if has_group(user, "alumno"):
         alumno = Comprador.objects.get(nombre=user.username)
         foto = alumno.foto
-    else:
+    elif has_group(user, "vendedor_fijo") or has_group(user, "vendedor_ambulante"):
         vendedor = Vendedor.objects.get(name=user.username)
         foto = vendedor.foto
+    else:
+        return "media/AvatarPenguin.png"
+    return foto.url
+
+@register.simple_tag(name='getvendedorpic')
+def getvendedorpic(name):
+    vendedor = Vendedor.objects.get(name=name)
+    foto = vendedor.foto
+    return foto.url
+
+@register.simple_tag(name='getproductopic')
+def getproductopic(name):
+    producto = Producto.objects.get(nombre=name)
+    foto = producto.foto
     return foto.url
