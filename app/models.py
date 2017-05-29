@@ -24,7 +24,7 @@ class Usuario(models.Model):
 class Comprador(models.Model):
     unique_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(u'Nombre', max_length=50, default='')
-    favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True, null=True)
+    favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
     foto = models.ImageField(u'Foto', upload_to='pictures/vendedores', default='static/img/AvatarEstudiante.png',
                              help_text='Recomendado: (que tamaño creen?)')
 
