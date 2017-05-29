@@ -97,6 +97,10 @@ def gestionproductos(request, name):
         form = ProductoForm()
     return render(request, 'app/productos2.html', {'form': form})
 
+def productos_delete(request, name, vendedor):
+    producto = Producto.objects.all().filter(nombre=name).first()
+    producto.delete()
+    return redirect('vendedorprofilepage', name=vendedor)
 
 def productos_edit(request, name, vendedor):
     producto_inicial = Producto.objects.all().filter(nombre=name).first()

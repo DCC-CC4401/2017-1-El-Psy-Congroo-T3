@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^vendedor/(?P<name>.+)$', views.vendedorprofilepage, name='vendedorprofilepage'),
     #/app/productos/edit
     url(r'^productos/(?P<vendedor>.+)/edit/(?P<name>.+)$', views.productos_edit, name='edicionproductos'),
+    # /app/productos/vendedor/delete
+    url(r'^productos/(?P<vendedor>.+)/delete/(?P<name>.+)$', views.productos_delete, name='eliminarproductos'),
     #/app/productos
     url(r'^productos/(?P<name>.+)$', views.gestionproductos, name='gestionproductos'),
     #/app/usuario
