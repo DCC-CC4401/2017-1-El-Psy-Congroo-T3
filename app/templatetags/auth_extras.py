@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.auth.models import Group
-from app.models import Comprador, Vendedor
+from app.models import Comprador, Vendedor, Producto
 
 register = template.Library()
 
@@ -28,4 +28,10 @@ def getprofilepic(context):
 def getvendedorpic(name):
     vendedor = Vendedor.objects.get(name=name)
     foto = vendedor.foto
+    return foto.url
+
+@register.simple_tag(name='getproductopic')
+def getproductopic(name):
+    producto = Producto.objects.get(nombre=name)
+    foto = producto.foto
     return foto.url

@@ -62,7 +62,7 @@
             </div>
             <div class="row show-on-small hide-on-med-and-up">
                 <a class="card-profile-image-small">
-                    <img src="{% static 'img/AvatarVendedor6.png' %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                    <img src="/app/{% getvendedorpic nombre %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
                 </a>
             </div>
             <div class="card-content s12">
@@ -141,7 +141,7 @@
                     <p class="medium-small flow-text light-green-text">{{ estado }}</p>
                 </div>
 
-                <div class="col s3 m2 l12 offset-s1"> <!--offset-s2-->
+                <div class="col s3 m2 l12 offset-s1">
                     <p class=" grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Formas de pago</p>
                     <p class="medium-small flow-text grey-text">{{ metodospago }}</p>
                 </div>
@@ -169,7 +169,7 @@
                                     <div class="container">
                                         <div class="card z-depth-1">
                                             <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="{% static 'img/pizza.png' %}">
+                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="/app/{% getproductopic p.nombre %}">
                                             </div>
                                             {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
                                              <div class="col m4 offset-s8 right-align">
@@ -189,7 +189,7 @@
 
                                                 <div id="{{ p.nombre }}" class="modal">
                                                     <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="{% static 'img/pepperoni1.jpg' %}">
+                                                      <img class="activator responsive-img center-block" src="/app/{% getproductopic p.nombre %}">
                                                     </div>
                                                     <div class="modal-footer">
                                                       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
