@@ -17,7 +17,15 @@ def getprofilepic(context):
     if has_group(user, "alumno"):
         alumno = Comprador.objects.get(nombre=user.username)
         foto = alumno.foto
-    else:
+    elif has_group(user, "vendedor_fijo") or has_group(user, "vendedor_ambulante"):
         vendedor = Vendedor.objects.get(name=user.username)
         foto = vendedor.foto
+    else:
+        return "media/AvatarPenguin.png"
+    return foto.url
+
+@register.simple_tag(name='getvendedorpic')
+def getvendedorpic(name):
+    vendedor = Vendedor.objects.get(name=name)
+    foto = vendedor.foto
     return foto.url

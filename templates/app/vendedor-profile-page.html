@@ -38,7 +38,7 @@
             $.ajax({
                 url: '{% url "change_active" %}',
                 success: function(data) {
-                      window.location.reload(); // This is not jQuery but simple plain ol' JS
+                      window.location.reload();
                 }
             })
  });
@@ -57,7 +57,7 @@
             </div>
             <div class="row hide-on-small-and-down">
                 <a class="card-profile-image-large">
-                    <img style="margin-top: 20%;" src="{% static 'img/AvatarVendedor6.png' %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                    <img style="margin-top: 20%;" src="/app/{% getvendedorpic nombre %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
                 </a>
             </div>
             <div class="row show-on-small hide-on-med-and-up">
