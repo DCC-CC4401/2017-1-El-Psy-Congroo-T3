@@ -30,18 +30,21 @@ class UserForm(forms.ModelForm):
         model = Usuario
         fields = ('tipo', 'nombre',)
 
+
 class ProductoForm(forms.ModelForm):
+    categorias = forms.ChoiceField(choices=CATEGORIA_COMIDA)
 
     class Meta:
         model = Producto
-        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion', 'foto',)
+        fields = ('nombre', 'precio', 'stock', 'descripcion', 'foto')
+
 
 class ProfileUpdateForm(forms.ModelForm):
     email = forms.EmailField(label='Ingresa tu e-mail', widget=forms.EmailInput())
     pagos = forms.ModelMultipleChoiceField(queryset=PaymentMethod.objects.all(), required=False, initial=PaymentMethod.objects.none())
     horainicial = forms.TimeField(label='Hora Inicial', widget=forms.TimeInput(), required=False)
     horafinal = forms.TimeField(label='Hora Final', widget=forms.TimeInput(), required=False)
-    imagen = forms.ImageField(label='Avatar', widget=forms.FileInput(), required=False, initial=None    )
+    imagen = forms.ImageField(label='Avatar', widget=forms.FileInput(), required=False, initial=None)
     password = forms.CharField(widget=forms.PasswordInput())
 
     def __init__(self, *args, **kwargs):
