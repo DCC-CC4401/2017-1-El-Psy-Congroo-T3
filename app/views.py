@@ -17,6 +17,22 @@ def getVendedores():
         vendedorList.append({'name': v.name})
     return vendedorList
 
+def getProductos(vendedor):
+    productos = Producto.objects.filter(vendedor=vendedor).all()
+    productoList = []
+
+    for p in productos:
+        item = {
+            'nombre': p.nombre,
+            'stock': p.stock,
+            'categoria': p.categoria,
+            'descripcion': p.descripcion,
+            'precio': p.precio,
+            'foto': p.foto,
+        }
+        productoList.append(item)
+    return productoList
+
 def index(request):
     data = {
         'vendedores': getVendedores(),
@@ -50,13 +66,17 @@ def register(request):
 
 def vendedorprofilepage(request, name):
     vendedor = Vendedor.objects.get(name=name)
+    metodospago = ''
+    for m in vendedor.metodopago.all():
+        metodospago += m.metodo + ' '
     data = {
         'nombre': vendedor.name,
-        'activo': 'Activo' if vendedor.activo else 'Inactivo',
-        'tipo': 'Vendedor fijo' if vendedor.tipo == '4' else 'Vendedor ambulante',
-        'metodospago': vendedor.metodopago,
+        'estado': 'Activo' if vendedor.activo else 'Inactivo',
+        'tipo': 'Vendedor fijo' if vendedor.tipo == 1 else 'Vendedor ambulante',
+        'metodospago': metodospago,
         'horario_inicio': vendedor.horario_inicio,
         'horario_fin': vendedor.horario_fin,
+        'productos': getProductos(vendedor),
     }
     return render(request, 'app/vendedor-profile-page.html', data)
 
