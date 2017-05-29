@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^usuario$', views.profile_edit, name='profile_edit'),
     # /app/productos2
     url(r'^productos2$', views.productos2, name='productos2'),
+    # ajax request to change vendedor active status
+    url(r'^ajax/change_active/$', views.change_active, name='change_active'),
 ]

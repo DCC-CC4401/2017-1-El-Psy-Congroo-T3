@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render
+from django.http import HttpResponse
 
 def getVendedores():
     vendedores = Vendedor.objects.all()
@@ -131,3 +132,10 @@ def productos2(request):
     else:
         form = ProductoForm()
     return render(request, 'app/productos2.html', {'form': form})
+
+
+def change_active(request):
+    vendedor = Vendedor.objects.get(name=request.user)
+    vendedor.activo = not vendedor.activo
+    vendedor.save()
+    return HttpResponse("")
