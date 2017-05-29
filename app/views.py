@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from django.http import HttpResponse
+import datetime
 
 def getVendedores():
     vendedores = Vendedor.objects.all()
@@ -79,6 +80,10 @@ def vendedorprofilepage(request, name):
         favs = vendedor.users.all().count
     for m in vendedor.metodopago.all():
         metodospago += m.metodo + ' '
+    now = datetime.datetime.now().time()
+    if now > vendedor.horario_inicio and now < vendedor.horario_fin:
+        vendedor.activo = True
+        vendedor.save()
     data = {
         'nombre': vendedor.name,
         'estado': 'Activo' if vendedor.activo else 'Inactivo',
@@ -88,7 +93,7 @@ def vendedorprofilepage(request, name):
         'horario_fin': vendedor.horario_fin,
         'productos': getProductos(vendedor),
         'favorito': favorito,
-        'numero_favs': favs
+        'numero_favs': favs,
     }
     return render(request, 'app/vendedor-profile-page.html', data)
 
@@ -150,7 +155,8 @@ def profile_edit(request):
                     alumno.save()
                 else: #usuario vendedor
                     vendedor = Vendedor.objects.get(name=request.user)
-                    vendedor.foto = foto
+                    if foto is not None:
+                        vendedor.foto = foto
                     vendedor.horario_inicio = form2.cleaned_data['horainicial']
                     vendedor.horario_fin = form2.cleaned_data['horafinal']
                     vendedor.save()
