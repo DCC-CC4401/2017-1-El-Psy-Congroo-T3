@@ -173,7 +173,7 @@
                 </div>
 
             {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
-                <div class="col s4 offset-s8 right-align"> <!--offset-s4-->
+                <div class="col s4 offset-s8 right-align">
                     <a href="{% url 'profile_edit' %}" class="btn-floating activator waves-effect waves-light darken-2">
                           <i class="material-icons">mode_edit</i>
                       </a>
@@ -197,16 +197,21 @@
                                             <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
                                               <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="{% static 'img/pizza.png' %}">
                                             </div>
-                                             <div class="col m4 offset-s8 right-align"> <!--offset-s4-->
+                                            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                             <div class="col m4 offset-s8 right-align">
                                                     <a href="{% url 'edicionproductos' name=p.nombre vendedor=nombre %}" class="btn-floating activator waves-effect waves-light darken-2">
                                                           <i class="material-icons ">mode_edit</i>
-                                                      </a>
+                                                    </a>
                                              </div>
+                                            {% endif %}
                                             <div class="card-content">
 
                                               <span class="card-title activator grey-text text-darken-4">{{ p.nombre }}<i class="material-icons right">more_vert</i></span>
 
                                               <p><a class="teal-text">${{ p.precio }}</a></p>
+                                            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                              <p><a class="red-text right" href="{% url 'eliminarproductos' name=p.nombre vendedor=nombre %}">Eliminar</a></p>
+                                            {% endif %}
 
                                                 <div id="{{ p.nombre }}" class="modal">
                                                     <div class="modal-content">
@@ -216,22 +221,6 @@
                                                       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
                                                     </div>
                                                 </div>
-                                                <!--<div id="modal2" class="modal">
-                                                    <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="{% static 'img/pollo1.jpg' %}">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
-                                                    </div>
-                                                </div>
-                                                <div id="modal3" class="modal">
-                                                    <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="{% static 'img/jugo1.jpg' %}">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
-                                                    </div>
-                                                </div>-->
                                             </div>
                                             <div class="card-reveal">
                                               <span class="card-title grey-text text-darken-4">{{ p.nombre }}<i class="material-icons right">close</i></span>
@@ -252,56 +241,6 @@
                                     </div>
                                 </div>
                              {% endfor %}
-
-                                <!--<div class="col s6 m6 l4">
-                                    <div class="container">
-                                        <div class="card z-depth-1">
-                                            <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="{% static 'img/rice.png' %}">
-                                            </div>
-                                            <div class="card-content">
-                                              <span class="card-title activator grey-text text-darken-4">Menú de arroz<i class="material-icons right">more_vert</i></span>
-                                              <p><a class="teal-text">$2.500</a></p>
-                                            </div>
-                                            <div class="card-reveal">
-                                              <span class="card-title grey-text text-darken-4">Menú de arroz<i class="material-icons right">close</i></span>
-                                              <ul>
-                                                <li>Precio: <a class="green-text light-green-text">$2.500</a></li>
-                                                <li>Categoria: Almuerzos</li>
-                                                <li>Stock: 40</li>
-                                                <li>Descripción: Almuerzo de arroz con pollo arvejado.
-                                                    <p class="right-align"><a class="waves-effect waves-light" href="#modal2">Ver imagen</a></p>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col s6 m6 l4">
-                                    <div class="container">
-                                        <div class="card z-depth-1">
-                                            <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="{% static 'img/juice.png' %}">
-                                            </div>
-                                            <div class="card-content">
-                                              <span class="card-title activator grey-text text-darken-4">Jugo<i class="material-icons right">more_vert</i></span>
-                                              <p><a class="teal-text">$300</a></p>
-                                            </div>
-                                            <div class="card-reveal">
-                                              <span class="card-title grey-text text-darken-4">Jugo<i class="material-icons right">close</i></span>
-                                              <ul>
-                                                <li>Precio: <a class="green-text light-green-text">$300</a></li>
-                                                <li>Categoria: Snack</li>
-                                                <li>Stock: 40</li>
-                                                <li>Descripción: Jugo en caja sabor durazno.
-                                                    <p class="right-align"><a class="waves-effect waves-light" href="#modal3">Ver imagen</a></p>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
                             </div>
                         </div>
 
