@@ -42,7 +42,7 @@
     {% endif %}
     <li><div class="divider"></div></li>
 
-    {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+    {% if request.user|has_group:'vendedor_ambulante' %}
     <li><a class="subheader">Activo</a></li>
     <li>
         <div class="switch" style="margin-left: 80px;">
