@@ -32,11 +32,17 @@ class UserForm(forms.ModelForm):
 
 
 class ProductoForm(forms.ModelForm):
-    categorias = forms.ChoiceField(choices=CATEGORIA_COMIDA)
 
     class Meta:
         model = Producto
-        fields = ('nombre', 'precio', 'stock', 'descripcion', 'foto')
+        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion', 'foto')
+
+
+class ProductoEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Producto
+        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion', 'foto')
 
 
 class ProfileUpdateForm(forms.ModelForm):

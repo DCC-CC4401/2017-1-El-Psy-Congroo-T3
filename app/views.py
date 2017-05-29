@@ -85,7 +85,7 @@ def gestionproductos(request, name):
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
-                                categoria=form.cleaned_data['categorias'],
+                                categoria=form.cleaned_data['categoria'],
                                 descripcion=form.cleaned_data['descripcion'],
                                 precio=form.cleaned_data['precio'],
                                 foto=form.cleaned_data['foto'])
@@ -94,6 +94,25 @@ def gestionproductos(request, name):
     else:
         form = ProductoForm()
     return render(request, 'app/productos2.html', {'form': form})
+
+
+def productos_edit(request, name):
+    producto_inicial = Producto.objects.all().filter(nombre=name).first()
+    form = ProductoEditForm(instance=producto_inicial)
+
+    if request.method == "POST":
+        form2 = ProductoEditForm(request.POST, request.FILES)
+        if form2.is_valid():
+            producto = Producto(nombre=form2.cleaned_data['nombre'], stock=form2.cleaned_data['stock'],
+                                categoria=form2.cleaned_data['categoria'],
+                                descripcion=form2.cleaned_data['descripcion'],
+                                precio=form2.cleaned_data['precio'],
+                                foto=form2.cleaned_data['foto'])
+            producto.save()
+            return redirect('vendedorprofilepage', name=name)
+    else:
+        form2 = ProductoEditForm()
+    return render(request, 'app/editar-productos.html', {'form': form})
 
 def profile_edit(request):
     form = ProfileUpdateForm(user=request.user)

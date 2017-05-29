@@ -1,0 +1,81 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+{% block user_info %}
+    <li>
+        <div class="userView">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile_edit' %}">
+                <i class="material-icons right grey-text text-lighten-2"
+                   style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">
+                    settings
+                </i>
+            </a>
+            {% endif %}
+          <div class="background" style="height:175px;">
+            <img src="{% static 'img/background4.png' %}">
+          </div>
+          {% if user.is_authenticated %}
+                 <a href="#!user"><img style="margin-top: 16%;" class="circle"
+                                src="{% static 'img/AvatarPenguin.png' %}"></a>
+                <a href="#!name"><span style="margin-left: 5%;" class="white-text name">{{ user.username }}</span></a>
+          {% else %}
+                <a href="#!user"><img style="margin-top: 16%;" class="circle"
+                                src="{% static 'img/AvatarPenguin.png' %}"></a>
+                <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
+          {% endif %}
+        </div>
+    </li>
+{% endblock %}
+
+{% block side_content %}
+    {% load auth_extras %}
+    {% if user.is_authenticated %}
+        {% if request.user|has_group:'alumno' %}
+            <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>
+    {% else %}
+        <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+        <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
+        <li><a href="{% url 'register' %}"><i class="material-icons">input</i>Registrarse</a></li>
+    {% endif %}
+    <li><div class="divider"></div></li>
+
+{% endblock %}
+
+{% block content %}
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>
+
+<main>
+<div class="section"></div>
+
+      <h4 class="teal-text" style="text-align: center;">Modificar Item</h4>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="margin-left: 5%; margin-right: 5%; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12 m12" method="post" enctype="multipart/form-data" action="">
+              {% csrf_token %}
+            <div class='row'>
+              <div class='col s12 m12'>
+              </div>
+            </div>
+
+              {{ form.as_p }}
+
+            <div class='row'>
+                    <button type='submit' class='col l5 offset-l4 btn btn-large waves-effect button teal'>&emsp; &emsp;Agregar<i class="material-icons right">send</i></button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+</main>
+{% endblock %}
