@@ -105,12 +105,13 @@ def productos_edit(request, name, vendedor):
     if request.method == "POST":
         form2 = ProductoEditForm(request.POST, request.FILES)
         if form2.is_valid():
-            producto = Producto(nombre=form2.cleaned_data['nombre'], stock=form2.cleaned_data['stock'],
-                                categoria=form2.cleaned_data['categoria'],
-                                descripcion=form2.cleaned_data['descripcion'],
-                                precio=form2.cleaned_data['precio'],
-                                foto=form2.cleaned_data['foto'])
-            producto.save()
+            producto_inicial.nombre = form2.cleaned_data['nombre']
+            producto_inicial.stock = form2.cleaned_data['stock']
+            producto_inicial.categoria = form2.cleaned_data['categoria']
+            producto_inicial.descripcion = form2.cleaned_data['descripcion']
+            producto_inicial.precio = form2.cleaned_data['precio']
+            producto_inicial.foto = form2.cleaned_data['foto']
+            producto_inicial.save()
             return redirect('vendedorprofilepage', name=vendedor)
     else:
         form2 = ProductoEditForm()
