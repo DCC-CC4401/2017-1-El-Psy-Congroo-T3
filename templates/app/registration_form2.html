@@ -2,19 +2,6 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block user_info %}
-    <li>
-        <div class="userView">
-          <div class="background" style="height:175px;">
-            <img src="{% static 'img/background4.png' %}">
-          </div>
-          <a href="#!user"><img style="margin-top: 16%;" class="circle"
-                                src="{% static 'img/AvatarPenguin.png' %}"></a>
-          <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
-        </div>
-    </li>
-{% endblock %}
-
 {% block side_content %}
     <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
     <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
