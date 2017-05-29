@@ -25,7 +25,7 @@ def getProductos(vendedor):
         item = {
             'nombre': p.nombre,
             'stock': p.stock,
-            'categoria': p.categoria,
+            'categoria': CATEGORIA_COMIDA.__getitem__(p.categoria-1)[1],
             'descripcion': p.descripcion,
             'precio': p.precio,
             'foto': p.foto,
