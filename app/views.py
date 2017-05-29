@@ -60,8 +60,20 @@ def vendedorprofilepage(request, name):
     }
     return render(request, 'app/vendedor-profile-page.html', data)
 
-def gestionproductos(request):
-    return render(request, 'app/gestion-productos.html', {})
+def gestionproductos(request, name):
+    if request.method == "POST":
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
+                                categoria=form.cleaned_data['categoria'],
+                                descripcion=form.cleaned_data['descripcion'],
+                                precio=form.cleaned_data['precio'],
+                                foto=form.cleaned_data['foto'])
+            producto.save()
+            return redirect('vendedorprofilepage', name=name)
+    else:
+        form = ProductoForm()
+    return render(request, 'app/productos2.html', {'form': form})
 
 def profile_edit(request):
     form = ProfileUpdateForm(user=request.user)
@@ -118,21 +130,6 @@ def register2(request):
     else:
         form = UserForm()
     return render(request, 'app/registration_form2.html', {'form': form})
-
-def productos2(request):
-    if request.method == "POST":
-        form = ProductoForm(request.POST)
-        if form.is_valid():
-            producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
-                                categoria=form.cleaned_data['categoria'],
-                                descripcion=form.cleaned_data['descripcion'],
-                                precio = form.cleaned_data['precio'])
-            producto.save()
-            return redirect('vendedorprofilepage', name=request)
-    else:
-        form = ProductoForm()
-    return render(request, 'app/productos2.html', {'form': form})
-
 
 def change_active(request):
     vendedor = Vendedor.objects.get(name=request.user)

@@ -25,7 +25,7 @@ class Comprador(models.Model):
     unique_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(u'Nombre', max_length=50, default='')
     favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
-    foto = models.ImageField(u'Foto', upload_to='pictures/vendedores', default='static/img/AvatarEstudiante.png',
+    foto = models.ImageField(u'Foto', default='AvatarEstudiante3.png',
                              help_text='Recomendado: (que tamaño creen?)')
 
     class Meta:
@@ -42,7 +42,7 @@ class Vendedor(models.Model):
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
     favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
-    foto = models.ImageField(u'Foto', upload_to='pictures/vendedores', default='static/img/AvatarVendedor1.png',
+    foto = models.ImageField(u'Foto', default='AvatarVendedor5.png',
                              help_text='Recomendado: (que tamaño creen?)')
     horario_inicio = models.TimeField(u'Horario de inicio', null=True)
     horario_fin = models.TimeField(u'Horario fin', null=True)
@@ -72,7 +72,7 @@ class Producto(models.Model):
     categoria = models.IntegerField(u'Categoría', choices=CATEGORIA_COMIDA, default=1)
     descripcion = models.TextField(u'Descripción', default='')
     precio = models.IntegerField(u'Precio', default=0)
-    foto = models.ImageField(u'Foto', upload_to='pictures/productos', default='static/img/bread.png',
+    foto = models.ImageField(u'Foto', default='bread.png',
                              help_text='Recomendado: (que tamaño creen?)')
     vendedor = models.ForeignKey('Vendedor', related_name='vendedor_respectivo',
                                  blank=True, null=True)

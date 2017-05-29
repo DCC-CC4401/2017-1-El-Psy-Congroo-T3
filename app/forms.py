@@ -34,7 +34,7 @@ class ProductoForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion',)
+        fields = ('nombre', 'precio', 'stock', 'categoria', 'descripcion', 'foto',)
 
 class ProfileUpdateForm(forms.ModelForm):
     email = forms.EmailField(label='Ingresa tu e-mail', widget=forms.EmailInput())
