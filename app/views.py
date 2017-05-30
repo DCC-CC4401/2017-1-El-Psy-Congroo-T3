@@ -154,6 +154,7 @@ def profile_edit(request):
                     alumno = Comprador.objects.get(nombre=request.user)
                     alumno.foto = foto
                     alumno.save()
+                    return redirect('index')
                 else: #usuario vendedor
                     vendedor = Vendedor.objects.get(name=request.user)
                     if foto is not None:
@@ -161,7 +162,7 @@ def profile_edit(request):
                     vendedor.horario_inicio = form2.cleaned_data['horainicial']
                     vendedor.horario_fin = form2.cleaned_data['horafinal']
                     vendedor.save()
-        return redirect('index')
+                    return redirect('vendedorprofilepage')
     return render(request, 'app/profile-edit.html', {'form': form})
 
 def register2(request):
