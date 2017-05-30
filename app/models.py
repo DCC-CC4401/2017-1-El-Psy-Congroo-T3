@@ -72,7 +72,7 @@ class Producto(models.Model):
     descripcion = models.TextField(u'Descripción', default='')
     precio = models.IntegerField(u'Precio', default=0)
     foto = models.ImageField(u'Foto', default='bread.png',
-                             help_text='Recomendado: (que tamaño creen?)')
+                             help_text='Recomendado: 512 x 512')
     vendedor = models.ForeignKey('Vendedor', related_name='vendedor_respectivo',
                                  blank=True, null=True)
 
