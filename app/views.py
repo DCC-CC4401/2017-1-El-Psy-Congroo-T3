@@ -81,9 +81,10 @@ def vendedorprofilepage(request, name):
     for m in vendedor.metodopago.all():
         metodospago += m.metodo + ' '
     now = datetime.datetime.now().time()
-    if now > vendedor.horario_inicio and now < vendedor.horario_fin:
-        vendedor.activo = True
-        vendedor.save()
+    if vendedor.tipo == 1:
+        if now > vendedor.horario_inicio and now < vendedor.horario_fin:
+            vendedor.activo = True
+            vendedor.save()
     data = {
         'nombre': vendedor.name,
         'estado': 'Activo' if vendedor.activo else 'Inactivo',

@@ -42,7 +42,7 @@ class Vendedor(models.Model):
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
     foto = models.ImageField(u'Foto', default='AvatarVendedor5.png',
-                             help_text='Recomendado: (que tamaño creen?)')
+                             help_text='Recomendado: 512 x 512')
     horario_inicio = models.TimeField(u'Horario de inicio', null=True)
     horario_fin = models.TimeField(u'Horario fin', null=True)
 
