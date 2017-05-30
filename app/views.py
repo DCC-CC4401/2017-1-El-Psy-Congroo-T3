@@ -104,7 +104,7 @@ def gestionproductos(request, name):
         if form.is_valid():
             vendedor = Vendedor.objects.get(name=request.user)
             producto = Producto(nombre=form.cleaned_data['nombre'], stock=form.cleaned_data['stock'],
-                                categoria=form.cleaned_data['categorias'],
+                                categoria=form.cleaned_data['categoria'],
                                 descripcion=form.cleaned_data['descripcion'],
                                 precio=form.cleaned_data['precio'],
                                 foto=form.cleaned_data['foto'],
