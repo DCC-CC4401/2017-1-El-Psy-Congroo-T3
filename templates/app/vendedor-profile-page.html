@@ -1,44 +1,51 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
-{% block user_info %}
-    <li>
-        <div class="userView">
-            <a href="{% url 'profile_edit' %}">
-                <i class="material-icons right grey-text text-lighten-2"
-                   style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">
-                    settings
-                </i>
-            </a>
-          <div class="background" style="height:175px;">
-            <img src="../static/img/background4.png">
-          </div>
-          <a href="#!user"><img style="margin-top: 16%;" class="circle"
-                                src="../static/img/AvatarPenguin.png"></a>
-          <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
-        </div>
-    </li>
-{% endblock %}
 
 {% block side_content %}
-    <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
-    <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
-    <!--<li><a href="{% url 'login' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>-->
+    {% load auth_extras %}
+    {% if user.is_authenticated %}
+        {% if request.user|has_group:'alumno' %}
+            <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Cerrar Sesión</a></li>
+    {% else %}
+        <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
+        <li><a href="{% url 'login' %}"><i class="material-icons">account_circle</i>Iniciar Sesión</a></li>
+        <li><a href="{% url 'register' %}"><i class="material-icons">input</i>Registrarse</a></li>
+    {% endif %}
     <li><div class="divider"></div></li>
+
+    {% if request.user|has_group:'vendedor_ambulante' %}
     <li><a class="subheader">Activo</a></li>
     <li>
         <div class="switch" style="margin-left: 80px;">
             <label>
-                No<input type="checkbox"><span class="lever"></span>Si
+                {% if estado == 'Activo' %}
+                    No<input id="activo" type="checkbox" checked><span class="lever"></span>Si
+                {% else %}
+                     No<input id="activo" type="checkbox"><span class="lever"></span>Si
+                {% endif %}
             </label>
         </div>
     </li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 <script>
+ $("#activo").change(function () {
+            $.ajax({
+                url: '{% url "change_active" %}',
+                success: function(data) {
+                      window.location.reload();
+                }
+            })
+ });
+
  $(document).ready(function(){
     $('.modal').modal();
-  });
+ });
 
 </script>
     <main>
@@ -46,95 +53,113 @@
     <div class="container">
         <div id="profile-page-header" class="card">
             <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="../static/img/food-background3.png" alt="user background">
+                <img class="activator" src="{% static 'img/food-background3.png' %}" alt="user background">
             </div>
             <div class="row hide-on-small-and-down">
                 <a class="card-profile-image-large">
-                    <img style="margin-top: 20%;" src="../static/img/AvatarVendedor6.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                    <img style="margin-top: 20%;" src="/app/{% getvendedorpic nombre %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
                 </a>
             </div>
             <div class="row show-on-small hide-on-med-and-up">
                 <a class="card-profile-image-small">
-                    <img src="../static/img/AvatarVendedor6.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                    <img src="/app/{% getvendedorpic nombre %}" alt="profile image" class="circle z-depth-2 responsive-img activator">
                 </a>
             </div>
             <div class="card-content s12">
                 <div class="row">
                     <div class="col s3 offset-s2 hide-on-med-and-down">
-                        <h4 class="card-title grey-text flow-text text-darken-4">Yolanda Martinez</h4>
-                        <p class="medium-small flow-text grey-text">&emsp;&emsp;&ensp;Vendedor Fijo</p>
-                        <p class="flow-text text-darken-4" style="font-size: 0.88rem;">
-                            &emsp;&emsp;Horario: <a class="light-green-text">12:30-14:15</a>
+                        <h4 class="card-title grey-text flow-text text-darken-4 center-align">{{ nombre }}</h4>
+                        <p class="medium-small flow-text grey-text center-align">&emsp;{{ tipo }}</p>
+                        {% if tipo == 'Vendedor fijo' %}
+                        <p class="flow-text text-darken-4 center-align" style="font-size: 0.88rem;">
+                            &emsp;&emsp;Horario: <a class="light-green-text center-align">{{ horario_inicio }} - {{ horario_fin }}</a>
                         </p>
+                        {% endif %}
                     </div>
                     <div class="col s3 l2 hide-on-med-and-down center-align">
                          <h4 class="card-title flow-text text-darken-4">Estado</h4>
-                        <p class="medium-small flow-text light-green-text">Disponible</p>
+                        <p class="medium-small flow-text light-green-text">{{ estado }}</p>
                     </div>
                     <div class="col s3 l2 hide-on-med-and-down center-align">
                         <h8 class=" grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Formas de pago</h8>
-                        <p class="medium-small flow-text grey-text">Efectivo</p>
+                        <p class="medium-small flow-text grey-text">{{ metodospago }}</p>
                     </div>
+                {% if user.is_authenticated %}
                     <div class="col s3 l2 hide-on-med-and-down center-align">
                         <div class="switch" style="margin-left: 10px;">
                             <label>
                                 <h4 class="card-title grey-text flow-text text-darken-4">Favorito</h4>
-                                <!--<input type="checkbox"><span class="lever"></span>-->
-                                <h6><i class="material-icons amber-text" >grade</i>
-                                    <span class=" grey-text flow-text text-darken-4"style="font-size:24px; line-height:35px;">42</span>
-                                </h6>
+                                {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                    <h6><i class="material-icons amber-text" >grade</i>
+                                        <span class=" grey-text flow-text text-darken-4"style="font-size:24px; line-height:35px;">{{ numero_favs }}</span>
+                                    </h6>
+                                {% else %}
+                                    {% if favorito %}
+                                    <input id="favbig" type="checkbox" checked><span class="lever"></span>
+                                    {% else %}
+                                    <input id="favbig" type="checkbox"><span class="lever"></span>
+                                    {% endif %}
+                                {% endif %}
                             </label>
                         </div>
                     </div>
+                {% endif %}
                 </div>
-
+            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
                 <div class="col s3 l2 hide-on-med-and-down right-align">
-                    <a class="btn-floating activator waves-effect waves-light darken-2">
+                    <a href="{% url 'profile_edit' %}" class="btn-floating activator waves-effect waves-light darken-2">
                           <i class="material-icons">mode_edit</i>
                       </a>
                  </div>
+            {% endif %}
             </div>
 
             <div class="row show-on-medium-and-down hide-on-med-and-up">
-                <div class="col s4 offset-s2">
-                        <h4 class="card-title grey-text flow-text text-darken-4">Yolanda Martinez</h4>
-                        <p class="medium-small flow-text grey-text">&ensp;Vendedor Fijo</p>
+                <div class="col s3 offset-s2">
+                        <h4 class="card-title grey-text flow-text text-darken-4">{{ nombre }}</h4>
+                        <p class="medium-small flow-text grey-text">&ensp;{{ tipo }}</p>
+                    {% if tipo == 'Vendedor fijo' %}
                         <p class="flow-text text-darken-4" style="font-size: 0.88rem;">
-                            &ensp;Horario: <a class="light-green-text">12:30-14:15</a>
+                            &ensp;Horario: <a class="light-green-text">{{ horario_inicio }} - {{ horario_fin }}</a>
                         </p>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
                         <div class="switch" style="margin-left: 10px;">
                             <label>
-                                <p class="card-title grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Favorito</p>
-                                <!--<input type="checkbox"><span class="lever"></span>-->
-                                <h6><i class="material-icons amber-text">grade</i>
-                                    <span class=" grey-text flow-text text-darken-4"style="font-size:22px; line-height:25px;">42</span>
-                                </h6>
+                                <h4 class="card-title grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Favorito</h4>
+                                {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                    <h6><i class="material-icons amber-text" >grade</i>
+                                        <span class=" grey-text flow-text text-darken-4"style="font-size:24px; line-height:35px;">{{ numero_favs }}</span>
+                                    </h6>
+                                {% else %}
+                                    {% if favorito %}
+                                    <input id="favsmall" type="checkbox" checked><span class="lever"></span>
+                                    {% else %}
+                                    <input id="favsmall" type="checkbox"><span class="lever"></span>
+                                    {% endif %}
+                                {% endif %}
                             </label>
                         </div>
+                    {% endif %}
                     </div>
                 <div class="col s3 m2 l12 offset-s1">
                     <p class="flow-text text-darken-4">Estado</p>
-                    <p class="medium-small flow-text light-green-text">Disponible</p>
+                    <p class="medium-small flow-text light-green-text">{{ estado }}</p>
                 </div>
 
-                <div class="col s3 m2 l12 offset-s1"> <!--offset-s2-->
+                <div class="col s3 m2 l12 offset-s1">
                     <p class=" grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Formas de pago</p>
-                    <p class="medium-small flow-text grey-text">Efectivo</p>
+                    <p class="medium-small flow-text grey-text">{{ metodospago }}</p>
                 </div>
 
-                <!--<div class="col s3 offset-s2 offset-l10">
-                    <div class="switch" style="margin-left: 10px;">
-                        <label>
-                            <p class="card-title grey-text flow-text text-darken-4" style="font-size: 1.3rem;">Favorito</p>
-                            <input type="checkbox"><span class="lever"></span>
-                        </label>
-                    </div>
-                </div>-->
-                <div class="col s4 offset-s8 right-align"> <!--offset-s4-->
-                    <a class="btn-floating activator waves-effect waves-light darken-2">
+            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                <div class="col s4 offset-s8 right-align">
+                    <a href="{% url 'profile_edit' %}" class="btn-floating activator waves-effect waves-light darken-2">
                           <i class="material-icons">mode_edit</i>
                       </a>
                  </div>
+            {% endif %}
             </div>
         </div>
     </div>
@@ -146,34 +171,32 @@
                         <div class="section">
                             <div class="row">
 
+                             {% for p in productos %}
                                 <div class="col s6 m6 l4">
                                     <div class="container">
                                         <div class="card z-depth-1">
                                             <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="../static/img/pizza.png">
+                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="/app/{% getproductopic p.nombre %}">
                                             </div>
+                                            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                             <div class="col m4 offset-s8 right-align">
+                                                    <a href="{% url 'edicionproductos' name=p.nombre vendedor=nombre %}" class="btn-floating activator waves-effect waves-light darken-2">
+                                                          <i class="material-icons ">mode_edit</i>
+                                                    </a>
+                                             </div>
+                                            {% endif %}
                                             <div class="card-content">
-                                              <span class="card-title activator grey-text text-darken-4">Pizza<i class="material-icons right">more_vert</i></span>
-                                              <p><a class="teal-text">$1.300</a></p>
-                                                <div id="modal1" class="modal">
+
+                                              <span class="card-title activator grey-text text-darken-4">{{ p.nombre }}<i class="material-icons right">more_vert</i></span>
+
+                                              <p><a class="teal-text">${{ p.precio }}</a></p>
+                                            {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                                              <p><a class="red-text right" href="{% url 'eliminarproductos' name=p.nombre vendedor=nombre %}">Eliminar</a></p>
+                                            {% endif %}
+
+                                                <div id="{{ p.nombre }}" class="modal">
                                                     <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="../static/img/pepperoni1.jpg">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
-                                                    </div>
-                                                </div>
-                                                <div id="modal2" class="modal">
-                                                    <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="../static/img/pollo1.jpg">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
-                                                    </div>
-                                                </div>
-                                                <div id="modal3" class="modal">
-                                                    <div class="modal-content">
-                                                      <img class="activator responsive-img center-block" src="../static/img/jugo1.jpg">
+                                                      <img class="activator responsive-img center-block" src="/app/{% getproductopic p.nombre %}">
                                                     </div>
                                                     <div class="modal-footer">
                                                       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><i class="large material-icons">close</i></a>
@@ -181,20 +204,16 @@
                                                 </div>
                                             </div>
                                             <div class="card-reveal">
-                                              <span class="card-title grey-text text-darken-4">Pizza<i class="material-icons right">close</i></span>
+                                              <span class="card-title grey-text text-darken-4">{{ p.nombre }}<i class="material-icons right">close</i></span>
                                                 <ul>
-                                                    <li>Precio: <a class="green-text light-green-text">$1.300</a></li>
-                                                    <li>Categoria: Almuerzos</li>
-                                                    <li>Stock: 20 </li>
-                                                    <!--<small class="btn-floating btn-small waves-effect waves-light red accent-2"><i class="material-icons tiny">add</i></small>-->
+                                                    <li>Precio: <a class="green-text light-green-text">${{ p.precio }}</a></li>
+                                                    <li>Categoria: {{ p.categoria }}</li>
+                                                    <li>Stock: {{ p.stock }} </li>
                                                     <br>
-                                                    <li>Descripción: Deliciosa pizza hecha con masa casera, viene disponible en 3 tipos:
-                                                        <p>-Peperoni: Queso mozzarella, Pepperoni</p>
-                                                        <p class="right-align"><a class="waves-effect waves-light" href="#modal1">Ver imagen</a></p>
-                                                        <p>-Clásica: Queso mozzarella, Aceitunas, Jamon, Tomate</p>
-                                                        <p class="right-align"><a class="waves-effect waves-light" href="#modal1">Ver imagen</a></p>
-                                                        <p>-Vegetariana: Queso mozzarella, Aceitunas, Champiñones, Tomate</p>
-                                                        <p class="right-align"><a class="waves-effect waves-light" href="#modal1">Ver imagen</a></p>
+                                                    <li>Descripción: {{ p.descripcion }}
+                                                        <div class="row">
+                                                            <p class="right-align col m6"><a class="waves-effect waves-light" href="#{{ product.nombre }}">Ver imagen</a></p>
+                                                        </div>
                                                     </li>
 
                                                 </ul>
@@ -202,68 +221,41 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col s6 m6 l4">
-                                    <div class="container">
-                                        <div class="card z-depth-1">
-                                            <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="../static/img/rice.png">
-                                            </div>
-                                            <div class="card-content">
-                                              <span class="card-title activator grey-text text-darken-4">Menú de arroz<i class="material-icons right">more_vert</i></span>
-                                              <p><a class="teal-text">$2.500</a></p>
-                                            </div>
-                                            <div class="card-reveal">
-                                              <span class="card-title grey-text text-darken-4">Menú de arroz<i class="material-icons right">close</i></span>
-                                              <ul>
-                                                <li>Precio: <a class="green-text light-green-text">$2.500</a></li>
-                                                <li>Categoria: Almuerzos</li>
-                                                <li>Stock: 40</li>
-                                                <li>Descripción: Almuerzo de arroz con pollo arvejado.
-                                                    <p class="right-align"><a class="waves-effect waves-light" href="#modal2">Ver imagen</a></p>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col s6 m6 l4">
-                                    <div class="container">
-                                        <div class="card z-depth-1">
-                                            <div class="teal lighten-2 card-image waves-effect waves-block waves-light">
-                                              <img class="activator responsive-img center-block"  style="max-width: 30%; margin-top:20px; margin-bottom:20px;" src="../static/img/juice.png">
-                                            </div>
-                                            <div class="card-content">
-                                              <span class="card-title activator grey-text text-darken-4">Jugo<i class="material-icons right">more_vert</i></span>
-                                              <p><a class="teal-text">$300</a></p>
-                                            </div>
-                                            <div class="card-reveal">
-                                              <span class="card-title grey-text text-darken-4">Jugo<i class="material-icons right">close</i></span>
-                                              <ul>
-                                                <li>Precio: <a class="green-text light-green-text">$300</a></li>
-                                                <li>Categoria: Snack</li>
-                                                <li>Stock: 40</li>
-                                                <li>Descripción: Jugo en caja sabor durazno.
-                                                    <p class="right-align"><a class="waves-effect waves-light" href="#modal3">Ver imagen</a></p>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                             {% endfor %}
                             </div>
                         </div>
 
                     </div>
 
                 </div>
-                <div class='row'>
-                    <a class='col l5 offset-l4 btn btn-large waves-effect button teal' href="{% url 'gestionproductos' %}">Agregar Item</a>
-                </div>
+                {% if request.user|has_group:'vendedor_fijo' or request.user|has_group:'vendedor_ambulante' %}
+                    <div class='row'>
+                        <a class='col l5 offset-l4 btn btn-large waves-effect button teal' href="{% url 'gestionproductos' name=nombre %}">Agregar Item</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
     </main>
+
+<script>
+    $("#favbig").change(function () {
+     $.ajax({
+         url: '{% url "add_favorite" %}',
+         data: {
+             'vendedor': '{{nombre}}'
+         },
+         dataType: 'json',
+     })
+ })
+    $("#favsmall").change(function () {
+     $.ajax({
+         url: '{% url "add_favorite" %}',
+         data: {
+             'vendedor': '{{nombre}}'
+         },
+         dataType: 'json',
+     })
+ })
+</script>
 {% endblock %}

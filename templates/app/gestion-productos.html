@@ -1,23 +1,6 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
-{% block user_info %}
-    <li>
-        <div class="userView">
-            <a href="{% url 'profile_edit' %}">
-                <i class="material-icons right grey-text text-lighten-2"
-                   style="position: absolute; bottom: -0.5em; right: 0.5em; padding: 0 0 !important;">
-                    settings
-                </i>
-            </a>
-          <div class="background" style="height:175px;">
-            <img src="../static/img/background4.png">
-          </div>
-          <a href="#!user"><img style="margin-top: 16%;" class="circle"
-                                src="../static/img/AvatarPenguin.png"></a>
-          <a href="#!name"><span style="margin-left: 5%;" class="white-text name">Invitado</span></a>
-        </div>
-    </li>
-{% endblock %}
 
 {% block side_content %}
     <li><a href="{% url 'index' %}"><i class="material-icons">home</i>Inicio</a></li>
@@ -88,49 +71,49 @@
 
                 <div class="col s12 l6">
                   <input class="with-gap" name="group1" type="radio" id="test1" />
-                  <label for="test1"><img style="max-width: 50px;" src="../static/img/bread.png"></label>
+                  <label for="test1"><img style="max-width: 50px;" src="{% static 'img/bread.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test2" />
-                  <label for="test2"><img style="max-width: 50px;" src="../static/img/breakfast.png"></label>
+                  <label for="test2"><img style="max-width: 50px;" src="{% static 'img/breakfast.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test3" />
-                  <label for="test3"><img style="max-width: 50px;" src="../static/img/burger.png"></label>
+                  <label for="test3"><img style="max-width: 50px;" src="{% static 'img/burger.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test4" />
-                  <label for="test4"><img style="max-width: 50px;" src="../static/img/chicken.png"></label>
+                  <label for="test4"><img style="max-width: 50px;" src="{% static 'img/chicken.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test5" />
-                  <label for="test5"><img style="max-width: 50px;" src="../static/img/chicken2.png"></label>
+                  <label for="test5"><img style="max-width: 50px;" src="{% static 'img/chicken2.png' %}"></label>
                 </div>
                 <div class="col s12 l6">
                   <input class="with-gap" name="group1" type="radio" id="test6" />
-                  <label for="test6"><img style="max-width: 50px;" src="../static/img/chocolate.png"></label>
+                  <label for="test6"><img style="max-width: 50px;" src="{% static 'img/chocolate.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test7" />
-                  <label for="test7"><img style="max-width: 50px;" src="../static/img/coke.png"></label>
+                  <label for="test7"><img style="max-width: 50px;" src="{% static 'img/coke.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test8" />
-                  <label for="test8"><img style="max-width: 50px;" src="../static/img/cupcake.png"></label>
+                  <label for="test8"><img style="max-width: 50px;" src="{% static 'img/cupcake.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test9" />
-                  <label for="test9"><img style="max-width: 50px;" src="../static/img/donut.png"></label>
+                  <label for="test9"><img style="max-width: 50px;" src="{% static 'img/donut.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test10" />
-                  <label for="test10"><img style="max-width: 50px;" src="../static/img/jelly.png"></label>
+                  <label for="test10"><img style="max-width: 50px;" src="{% static 'img/jelly.png' %}"></label>
                 </div>
                 <div class="col s12 l6">
                   <input class="with-gap" name="group1" type="radio" id="test11" />
-                  <label for="test11"><img style="max-width: 50px;" src="../static/img/fish.png"></label>
+                  <label for="test11"><img style="max-width: 50px;" src="{% static 'img/fish.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test12" />
-                  <label for="test12"><img style="max-width: 50px;" src="../static/img/fries.png"></label>
+                  <label for="test12"><img style="max-width: 50px;" src="{% static 'img/fries.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test13" />
-                  <label for="test13"><img style="max-width: 50px;" src="../static/img/hot-dog.png"></label>
+                  <label for="test13"><img style="max-width: 50px;" src="{% static 'img/hot-dog.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test14" />
-                  <label for="test14"><img style="max-width: 50px;" src="../static/img/icecream.png"></label>
+                  <label for="test14"><img style="max-width: 50px;" src="{% static 'img/icecream.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test15" />
-                  <label for="test15"><img style="max-width: 50px;" src="../static/img/juice.png"></label>
+                  <label for="test15"><img style="max-width: 50px;" src="{% static 'img/juice.png' %}"></label>
                 </div>
                 <div class="col s12 l6">
                   <input class="with-gap" name="group1" type="radio" id="test16" />
-                  <label for="test16"><img style="max-width: 50px;" src="../static/img/lettuce.png"></label>
+                  <label for="test16"><img style="max-width: 50px;" src="{% static 'img/lettuce.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test17" />
-                  <label for="test17"><img style="max-width: 50px;" src="../static/img/pizza.png"></label>
+                  <label for="test17"><img style="max-width: 50px;" src="{% static 'img/pizza.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test18" />
-                  <label for="test18"><img style="max-width: 50px;" src="../static/img/spaguetti.png"></label>
+                  <label for="test18"><img style="max-width: 50px;" src="{% static 'img/spaguetti.png' %}"></label>
                   <input class="with-gap" name="group2" type="radio" id="test19" />
-                  <label for="test19"><img style="max-width: 50px;" src="../static/img/rice.png"></label>
+                  <label for="test19"><img style="max-width: 50px;" src="{% static 'img/rice.png' %}"></label>
 
                 </div>
 

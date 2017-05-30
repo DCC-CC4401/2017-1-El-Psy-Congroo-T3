@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from app.utils.choices import *
 from app.utils.functions import *
+import uuid
 
 
 # Create your models here.
@@ -11,6 +11,7 @@ from app.utils.functions import *
 class Usuario(models.Model):
     usuario = models.OneToOneField(User, verbose_name='Usuario', related_name='usuario')
     nombre = models.CharField(u'Nombre', max_length=50, default='')
+    tipo = models.IntegerField(u'Tipo de usuario', choices=TIPO_USUARIO, default=2)
 
     class Meta:
         verbose_name = 'Usuario'
@@ -21,8 +22,11 @@ class Usuario(models.Model):
 
 
 class Comprador(models.Model):
+    unique_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nombre = models.CharField(u'Nombre', max_length=50, default='')
-    favoritos = models.ManyToManyField('Vendedor', 'vendedores_favoritos', blank=True)
+    favoritos = models.ManyToManyField('Vendedor', related_name="users", blank=True)
+    foto = models.ImageField(u'Foto', default='AvatarEstudiante3.png',
+                             help_text='Recomendado: (que tamaño creen?)')
 
     class Meta:
         verbose_name = 'Comprador'
@@ -36,8 +40,11 @@ class Vendedor(models.Model):
     name = models.CharField(u'Nombre', max_length=50, default='', primary_key=True)
     activo = models.BooleanField(u'Activo', default=False)
     tipo = models.IntegerField(u'Tipo Vendedor', choices=TIPO_VENDEDOR, default=1)
-    favoritos = models.IntegerField(u'Favoritos', default=0)
     metodopago = models.ManyToManyField('PaymentMethod', 'metodos_de_pago')
+    foto = models.ImageField(u'Foto', default='AvatarVendedor5.png',
+                             help_text='Recomendado: 512 x 512')
+    horario_inicio = models.TimeField(u'Horario de inicio', null=True)
+    horario_fin = models.TimeField(u'Horario fin', null=True)
 
     class Meta:
         verbose_name = 'Vendedor'
@@ -57,12 +64,17 @@ class PaymentMethod(models.Model):
     def __str__(self):
         return self.metodo
 
+
 class Producto(models.Model):
     nombre = models.CharField(u'Nombre', max_length=50, default='')
     stock = models.IntegerField(u'Stock', default=0)
     categoria = models.IntegerField(u'Categoría', choices=CATEGORIA_COMIDA, default=1)
     descripcion = models.TextField(u'Descripción', default='')
     precio = models.IntegerField(u'Precio', default=0)
+    foto = models.ImageField(u'Foto', default='bread.png',
+                             help_text='Recomendado: 512 x 512')
+    vendedor = models.ForeignKey('Vendedor', related_name='vendedor_respectivo',
+                                 blank=True, null=True)
 
     class Meta:
         verbose_name = 'Producto'
@@ -70,5 +82,3 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
-
-
